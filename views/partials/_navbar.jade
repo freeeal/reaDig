@@ -1,0 +1,35 @@
+nav.navbar.navbar-inverse.navbar-custom
+  .container-fluid
+        .navbar-header
+          .navbar-brand
+            a(href='/auth')
+              img(src='./images/reaDig-logo.png', style='max-width:80px; margin-top:-27px')    
+        |     
+        div
+          ul.nav.navbar-nav
+            li
+              if (!user)  
+                a(href='/auth') home
+              else
+                a(href='/profile') home
+            |         
+            li
+              a(href='/profile') profile
+            |         
+            li
+              a(href='#') friends
+            |           
+            li
+              a(href='#') recommendations
+          |       
+          ul.nav.navbar-nav.navbar-right      
+            if (!user)
+              li
+                a(href='/auth/login')
+                  span.glyphicon.glyphicon-log-in
+                  |  login
+            else
+              li
+                a(href='/auth/logout')
+                  span.glyphicon.glyphicon-log-out
+                  |  logout

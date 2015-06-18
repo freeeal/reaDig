@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				h1.text-center
+					b welcome to reaDig!
+					p.lead THE platform for connecting young readers.
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				h3.text-muted.text-center LOGIN or SIGN UP for a local reaDig account:
+					br
+					br
+					a(href='/auth/login', class='btn btn-lg btn-social btn-default', style='padding:15px') Login
+					a(href='/auth/signup', class='btn btn-lg btn-social btn-default', style='padding:15px') Signup
+					br
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				h3.text-muted.text-center or LOGIN with your favorite social network:
+					br
+					br
+					a(href='/auth/facebook', class='btn btn-block btn-social btn-facebook', style='max-width:140px; min-width:140px; margin-left:auto; margin-right:auto') Facebook
+						i(class='fa fa-facebook')
+					a(href='/auth/twitter', class='btn btn-block btn-social btn-twitter', style='max-width:140px; min-width:140px; margin-left:auto; margin-right:auto') Twitter
+						i(class='fa fa-twitter')
+					a(href='/auth/google', class='btn btn-block btn-social btn-google', style='max-width:140px; min-width:140px; margin-left:auto; margin-right:auto') Google+
+						i(class='fa fa-google-plus')
+

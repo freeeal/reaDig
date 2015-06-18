@@ -1,0 +1,71 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.page-header.text-center
+      h1 your reaDig profile page 
+    div.row
+      div.col-md-4
+        div.signup-wall
+          h3.fa.fa-user   Local Information
+          
+          if user.local.username
+            ul.user-details
+              li full name: #{user.local.fullName}
+              li username: #{user.local.username}
+              li email: #{user.local.email}
+            a(href='/auth/unlink/local', class='btn btn-primary') unlink
+          else
+            a(href='/auth/connect/local', class='btn btn-primary') connect local
+            
+      div.col-md-4
+        div.signup-wall
+          h3.fa.fa-facebook   Facebook
+          
+          if user.facebook.token
+            ul.user-details
+              li full name: #{user.facebook.fullName}
+              li email: #{user.facebook.email}
+            a(href='/auth/unlink/facebook', class='btn btn-primary') unlink
+          else
+            a(href='/auth/connect/facebook', class='btn btn-primary') connect Facebook
+
+      div.col-md-4
+        div.signup-wall
+          h3.fa.fa-twitter Twitter
+          
+          if user.twitter.token
+            ul.user-details
+              li full name: #{user.twitter.fullName} 
+              li username: #{user.twitter.username}
+            a(href='/auth/unlink/twitter', class='btn btn-primary') unlink
+          else
+            a(href='/auth/connect/twitter', class='btn btn-primary') connect Twitter
+
+      div.col-md-4
+        div.signup-wall
+          h3.fa.fa-google-plus Google+
+          
+          if user.google.token
+            ul.user-details
+              li full name: #{user.facebook.fullName}
+              li email: #{user.google.email}
+            a(href='/auth/unlink/google', class='btn btn-primary') unlink
+          else
+            a(href='/auth/connect/google', class='btn btn-primary') connect Google+
+
+
+
+      div.col-md-4
+        h2 write your latest review here!
+          form(action="#", method="POST")
+            .form-group
+              label.control-label(for="bookname") book
+              input.form-control#bookname(name="bookname")
+              label.control-label(for="authorname") author
+              input.form-control#authorname(name="authorname")
+              label.control-label(for="rating") rating from 1 to 10
+              input.form-control#rating(name="rating")
+              label.control-label(for="reviewtext") what'd you think of the book?
+              input.form-control#reviewtext(name="reviewtext")
+              button.btn.btn-default(type="submit") post your review!

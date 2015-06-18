@@ -1,0 +1,130 @@
+//----------------------------------------------NAV BAR----------------------------------------------------------------------------------
+
+.navbar-brand {
+    margin: 0px;
+    padding: 0px;
+}
+
+nav.navbar.navbar-inverse.navbar-custom {  
+    background-color: #74AFAD;
+    border-radius:0;
+    position: absolute;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+}
+
+nav.navbar.navbar-inverse.navbar-custom li a{
+	color: #000000;
+}
+
+nav.navbar.navbar-inverse.navbar-custom li a:hover{
+	color: #ECECEA;
+	background-color:#558C89;
+}
+
+.navbar-brand {
+	background-color:#558C89;
+}
+
+.navbar-brand a:hover {
+	background-color:none;
+}
+
+body {
+	padding-top: 50px;
+	font-family: 'Jura', sans-serif;
+	font-weight: 600;
+	margin-top: 40px;
+	background-color: #ECECEA;
+	color: #000000;
+	font-size: 16px;
+}
+
+//----------------------------------------FOOTER------------------------------------------------------------------------------------------------
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+    height: 100px; /* .push must be the same height as .footer */
+    background-color:#74AFAD;
+    position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+}
+
+.nav-justified li a {
+    color: #000000; 
+}
+
+.nav-justified li a:hover {
+	color: #ECECEA;
+	background-color: #558C89;
+    border-radius: 0px;
+}
+
+/*.nav-justified .active a:hover {
+    color: #560000;
+    border-radius: 0px;
+}*/
+
+//------------------------------------------------------LOGIN PAGE-----------------------------------------------------------------------------------------------
+
+.big-login, .big-register {
+    background-color: #D9853B;
+    color: #000000;
+    border-radius: 7px;
+    border-width: 2px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 200;
+    padding: 16px 60px;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    width: 200px;
+    position: relative;
+    left: 50%;
+    margin-left: -100px;
+}
+
+.big-login {
+	background-color: #74AFAD;
+	color: #000000;
+
+}
+.big-login:hover {
+    background-color: #558C89;
+    color: #ECECEA;
+    border-color: #000000;
+}
+
+.big-register{
+    background-color: #D9853B;
+    color: #000000;
+}
+
+.big-register:hover{
+    background-color: #C46210;
+    border-color: #000000;
+    color: #ECECEA;
+}
+
+#message {
+	color: #FF0000;
+}
+
+//---------------------------------------------------------------INDEX PAGE------------------------------------------------------------------------------------
+
+/*.btn-facebook, .btn-twitter, .btn-google {
+    max-width:140px; 
+    min-width:140px; 
+    margin-left:auto; 
+    margin-right:auto;
+} */

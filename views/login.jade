@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				h1.text-center.login-title
+					b sign in to reaDig!
+					p.lead THE platform for connecting young readers.
+					div.account-wall
+						img(class='profile-img', src='http://www.timelinecovers.pro/images/blank_avtar.gif')
+						br
+						br
+						form(class='form-signin', action='/auth/login', method='POST')
+							input(type='text', name='username' class='form-control', placeholder='username', required, autofocus)
+							input(type='password', name='password' class='form-control', placeholder='password', required)
+							button(class='btn btn-lg btn-primary btn-block big-login', type='submit') sign in
+							span.clearfix
+
+					#message
+						if message
+							h2.text-center.error-message #{message}
+
+					hr
+
+					a.btn.btn-lg.big-register(href='/auth/signup', class='text-center new-account') need an account?
+					a.btn.big-home(href='/auth') home
+					
