@@ -8,12 +8,13 @@ block content
 					b sign in to reaDig!
 					p.lead THE platform for connecting young readers.
 					div.account-wall
-						img(class='profile-img', src='http://www.timelinecovers.pro/images/blank_avtar.gif')
+						img(class='login-img', src='http://srec.azores.gov.pt/dre/sd/115189010600/images/readingbook.GIF')
 						br
 						br
 						form(class='form-signin', action='/auth/login', method='POST')
 							input(type='text', name='username' class='form-control', placeholder='username', required, autofocus)
 							input(type='password', name='password' class='form-control', placeholder='password', required)
+							br
 							button(class='btn btn-lg btn-primary btn-block big-login', type='submit') sign in
 							span.clearfix
 
@@ -21,8 +22,6 @@ block content
 						if message
 							h2.text-center.error-message #{message}
 
-					hr
-
-					a.btn.btn-lg.big-register(href='/auth/signup', class='text-center new-account') need an account?
-					a.btn.big-home(href='/auth') home
+				a.btn.btn-lg.big-register(href='/auth/signup') need an account?
+				a.btn.btn-lg.big-home(href='/auth') go home
 					

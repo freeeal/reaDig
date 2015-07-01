@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.text-center.review-panel
+      h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}'s book reviews:
+          br
+          br
+          .review-listing.text-left
+            - each review in reviews
+                .well
+                  h2.review-bookName #{review.bookName}
+                    .review-listing-detail
+                      h4= review.reviewBody
+                        br
+                        br
+                        ul.list-inline
+                          - var rating = review.ratingValue
+                          - var i = 1
+                          li | 
+                            while i<=rating
+                              span.glyphicon.glyphicon-star
+                              - i++
+                            if i!=5
+                              while i<=5
+                                span.glyphicon.glyphicon-star-empty
+                                -i++

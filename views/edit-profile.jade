@@ -1,0 +1,70 @@
+extends layout
+
+block content
+
+  div.container-fluid
+    div.page-header.text-center
+      h1 edit profile settings
+    div.row
+      div.col-md-6.text-center
+        div.signup-wall
+          h3.fa.fa-user   
+            b Local Information
+          
+          if user.local.username
+            ul.user-details(style='list-style-type:none')
+              li full name: #{user.local.fullName}
+              li username: #{user.local.username}
+              li email: #{user.local.email}
+            a(href='/auth/unlink/local', class='btn btn-primary unlink-button') unlink
+          else
+            br
+            a(href='/auth/connect/local', class='btn btn-primary link-button') connect local
+          br
+          br
+
+        div.signup-wall
+          h3.fa.fa-facebook   
+            b Facebook
+          
+          if user.facebook.token
+            ul.user-details(style='list-style-type:none')
+              li full name: #{user.facebook.fullName}
+              li email: #{user.facebook.email}
+            a(href='/auth/unlink/facebook', class='btn btn-primary unlink-button') unlink
+          else
+            br
+            a(href='/auth/connect/facebook', class='btn btn-primary link-button') connect Facebook
+
+      div.col-md-6.text-center
+        div.signup-wall
+          h3.fa.fa-twitter   
+            b Twitter
+          
+          if user.twitter.token
+            ul.user-details(style='list-style-type:none')
+              li full name: #{user.twitter.fullName} 
+              li username: #{user.twitter.username}
+            a(href='/auth/unlink/twitter', class='btn btn-primary unlink-button') unlink
+          else
+            br
+            a(href='/auth/connect/twitter', class='btn btn-primary link-button') connect Twitter
+          br
+          br
+
+        div.signup-wall
+          h3.fa.fa-google-plus   
+            b Google+
+          
+          if user.google.token
+            ul.user-details(style='list-style-type:none')
+              li full name: #{user.facebook.fullName}
+              li email: #{user.google.email}
+            a(href='/auth/unlink/google', class='btn btn-primary unlink-button') unlink
+          else
+            br
+            a(href='/auth/connect/google', class='btn btn-primary link-button') connect Google+
+    br
+    br
+    div.text-center
+      a(href='/profile', class='btn btn-primary profile-button') return to my profile

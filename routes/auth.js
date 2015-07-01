@@ -1,10 +1,4 @@
-// var express = require('express');
-// var router = express.Router();
-// var User = require('../models/user');
-// var Author = require('../models/author');
-// var Review = require('../models/review');
-// var Book = require('../models/book');
-
+// ROUTER THAT HANDLES ALL AUTHENTICATION PAGES
 
 // define routes for application in this module which takes the instance of Passport created in app.js
 module.exports = function(router, passport, db){
@@ -94,7 +88,7 @@ module.exports = function(router, passport, db){
             res.render('local-connect', { message: req.flash('message') });
         });
         router.post('/connect/local', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/account', // redirect to the secure profile section
             failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
@@ -135,7 +129,7 @@ module.exports = function(router, passport, db){
 		user.save(function(err) {
 			if (err)
 				throw err;
-			res.redirect('/profile');
+			res.redirect('/account');
 		});
 	});
 
@@ -146,7 +140,7 @@ module.exports = function(router, passport, db){
 		user.save(function(err) {
 			if (err)
 				throw err;
-			res.redirect('/profile');
+			res.redirect('/account');
 		});
 	});
 
@@ -157,7 +151,7 @@ module.exports = function(router, passport, db){
 		user.save(function(err) {
 			if (err)
 				throw err;
-			res.redirect('/profile');
+			res.redirect('/account');
 		});
 	});
 
@@ -168,7 +162,7 @@ module.exports = function(router, passport, db){
 		user.save(function(err) {
 			if (err)
 				throw err;
-			res.redirect('/profile');
+			res.redirect('/account');
 		});
 	});
 

@@ -8,6 +8,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // Local Authentication Strategy of Passport and authenticate the users against a 
 // locally configured Mongo DB instance, storing the user details in the database.
 var bcrypt = require('bcrypt-nodejs');
+var ReviewSchema = mongoose.model('Review').schema;
 
 var UserSchema = new Schema({
 
@@ -23,20 +24,24 @@ var UserSchema = new Schema({
         id           : String,
         token        : String,
         fullName	 : String,
-        email        : String
+        email        : String,
+        url			 : String
     },
     twitter          : {
         id           : String,
         token        : String,
         username     : String,
-        fullName     : String
+        fullName     : String,
+        url			 : String
     },
     google           : {
         id           : String,
         token        : String,
         email	     : String,
-        fullName	 : String
-    }
+        fullName	 : String,
+        url			 : String
+    },
+    reviews: [ReviewSchema]
 
 });
 
@@ -68,39 +73,3 @@ UserSchema.set('toJSON', { getters: true, virtuals: true});	// forces Mongoose t
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);
-
-	
-
-
-	// email: {
-	// 	type: String,
-	// 	match: [/.+\@.+\..+/, "Please fill in valid email address."],
-	// 	// This match validator ensures email field value matches the given regex expression
-	// 	// thus preventing the saving of any document where the email does not conform to the right pattern'
-	// },
-
-
-// // Find possible not used username
-// UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-// 	var _this = this;
-
-// 	// Add a 'username' suffix
-// 	var possibleUsername = username + (suffix || '');
-
-// 	// Use the 'User' model 'findOne' method to find an available unique username
-// 	_this.findOne({
-// 		username: possibleUsername
-// 	}, function(err, user) {
-// 		// If an error occurs call the callback with a null value, otherwise find find an available unique username
-// 		if (!err) {
-// 			// If an available unique username was found call the callback method, otherwise call the 'findUniqueUsername' method again with a new suffix
-// 			if (!user) {
-// 				callback(possibleUsername);
-// 			} else {
-// 				return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-// 			}
-// 		} else {
-// 			callback(null);
-// 		}
-// 	});
-// };

@@ -2,70 +2,78 @@ extends layout
 
 block content
   div.container-fluid
-    div.page-header.text-center
-      h1 your reaDig profile page 
-    div.row
+      div.col-md-4.text-center.profile-panel
+        h3 
+          b your reaDig profile
+          br
+          br
+          .info-card
+            img(style='width:75%', src='https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xap1/t31.0-8/1268676_10204873052168894_3265072449209722771_o.jpg')
+            .info-card-details.animate(class='[ ]')
+              .info-card-header(class='[ ]')
+                h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}
+                h3(style='color:#558C89') #{user.local.username || user.twitter.username}
+              .info-card-detail(class='[ ]')
+                p
+                  | The idea of creating something out of nothing has always generated a passion in my heart. This is what lead me to website development. I can literally create little worlds that hopefully thousands of people can see and even experience.
+                .social
+                  if user.facebook.token
+                    a.social-icon.facebook.animate(href='#{user.facebook.url}', class='[ ]')
+                      span.fa.fa-facebook
+                  if user.twitter.token
+                    a.social-icon.twitter.animate(href='#{user.twitter.url}', class='[ ]')
+                      span.fa.fa-twitter
+                  if user.twitter.token
+                    a.social-icon.google-plus.animate(href='#{user.google.url}', class='[ ]')
+                      span.fa.fa-google-plus
+          .info-overview
+            .row.overview
+              .col-md-4.user-pad.text-center
+                h3(href='/profile') books
+                |                     
+                h4 33
+              |                 
+              .col-md-4.user-pad.text-center
+                h3 reviews
+                |                     
+                h4 10
+              |                 
+              .col-md-4.user-pad.text-center
+                h3 friends
+                |                     
+                h4 101  
+          br          
+          a(href='/account', class='btn btn-primary profile-button') edit profile            
+
       div.col-md-4
-        div.signup-wall
-          h3.fa.fa-user   Local Information
+
+      div.col-md-4
+        .container-fluid
+          .form-area.text-center
+            form(class='form-review', action='/profile', method='POST')
+              br(style='clear:both')
+              h3(style='margin-bottom: 25px; text-align: center;') 
+                b tell us about a book you've read!
+              .form-group
+                input(type='text', name='bookName', class='form-control', placeholder='book name', required, autofocus)
+              #message
+                if message
+                  h3.text-center.error-message #{message}
+
+              .form-group
+                .row.lead
+                  h2
+                    b book rating:
+                  #stars.starrr(data-connected-input='rating')
+                  span.choice
+                  |/5
+                  br
+                  input(type='hidden', name='rating', required)
+
+              .form-group
+                textarea#message-area.form-control(type='textarea', name='reviewBody', placeholder='book review (optional)', maxlength='140', rows='5')
+                span.help-block
+                  p#characterLeft 
+              button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit
           
-          if user.local.username
-            ul.user-details
-              li full name: #{user.local.fullName}
-              li username: #{user.local.username}
-              li email: #{user.local.email}
-            a(href='/auth/unlink/local', class='btn btn-primary') unlink
-          else
-            a(href='/auth/connect/local', class='btn btn-primary') connect local
-            
-      div.col-md-4
-        div.signup-wall
-          h3.fa.fa-facebook   Facebook
-          
-          if user.facebook.token
-            ul.user-details
-              li full name: #{user.facebook.fullName}
-              li email: #{user.facebook.email}
-            a(href='/auth/unlink/facebook', class='btn btn-primary') unlink
-          else
-            a(href='/auth/connect/facebook', class='btn btn-primary') connect Facebook
-
-      div.col-md-4
-        div.signup-wall
-          h3.fa.fa-twitter Twitter
-          
-          if user.twitter.token
-            ul.user-details
-              li full name: #{user.twitter.fullName} 
-              li username: #{user.twitter.username}
-            a(href='/auth/unlink/twitter', class='btn btn-primary') unlink
-          else
-            a(href='/auth/connect/twitter', class='btn btn-primary') connect Twitter
-
-      div.col-md-4
-        div.signup-wall
-          h3.fa.fa-google-plus Google+
-          
-          if user.google.token
-            ul.user-details
-              li full name: #{user.facebook.fullName}
-              li email: #{user.google.email}
-            a(href='/auth/unlink/google', class='btn btn-primary') unlink
-          else
-            a(href='/auth/connect/google', class='btn btn-primary') connect Google+
-
-
-
-      div.col-md-4
-        h2 write your latest review here!
-          form(action="#", method="POST")
-            .form-group
-              label.control-label(for="bookname") book
-              input.form-control#bookname(name="bookname")
-              label.control-label(for="authorname") author
-              input.form-control#authorname(name="authorname")
-              label.control-label(for="rating") rating from 1 to 10
-              input.form-control#rating(name="rating")
-              label.control-label(for="reviewtext") what'd you think of the book?
-              input.form-control#reviewtext(name="reviewtext")
-              button.btn.btn-default(type="submit") post your review!
+      

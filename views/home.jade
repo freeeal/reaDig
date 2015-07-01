@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	div.container-fluid
+		div.row
+			div.col-md-4
+				#user
+					h2.text-center.login-title 
+						b welcome back to reaDig #{user.local.firstName}! 
+						p.lead here are some of today's most read books!
+		div.row
+			div.col-md-4
+				div.signup-wall
+					ul.user-details
+						li first name: #{user.local.firstName || user.facebook.firstName || user.twitter.firstName} 
+						li last name: #{user.local.lastName || user.facebook.lastName || user.twitter.lastName}
+						li username: #{user.local.username || user.twitter.username}
+						li email: #{user.local.email || user.facebook.email}
+				a(href='/logout', class='text-center new-account') log out			
+			div.col-md-4
+				h2 write your latest review here!
+					form(action="/index", method="POST")
+						.form-group
+							label.control-label(for="bookname") book
+							input.form-control#bookname(name="bookname")
+							label.control-label(for="authorname") author
+							input.form-control#authorname(name="authorname")
+							label.control-label(for="rating") rating from 1 to 10
+							input.form-control#rating(name="rating")
+							label.control-label(for="reviewtext") what'd you think of the book?
+							input.form-control#reviewtext(name="reviewtext")
+							button.btn.btn-default(type="submit") post your review!

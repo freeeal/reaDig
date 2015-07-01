@@ -4,22 +4,16 @@ head
     meta(name='viewport', content='width=device-width, initial-scale=1')
     include ./partials/_navbar.jade
     link(href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel='stylesheet', media='screen')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', type='text/javascript')
-    link(href='http://fonts.googleapis.com/css?family=Jura:400,300', rel='stylesheet', type='text/css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-social.css')
-    link(href='/stylesheets/style.css', rel='stylesheet')
     link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet')  
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', type='text/javascript')
+    script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+    link(href='http://fonts.googleapis.com/css?family=Jura:400,300', rel='stylesheet', type='text/css')
+    link(href='/stylesheets/bootstrap-social.css', rel='stylesheet')
+    link(href='/stylesheets/style.css', rel='stylesheet')
 
 body
       block content
-        .container-fluid
+      script(src='/javascripts/review-box.js', type='text/javascript')
+      script(src='/javascripts/reviews.js', type='text/javascript')
       .wrapper
-          #footercontent
-            |   
-            .push
-          |  
-          .footer
-            include ./partials/_footer.jade
-
-script(src='http://code.jquery.com/jquery.js')
-script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+        include ./partials/_footer.jade

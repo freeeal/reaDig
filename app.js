@@ -28,7 +28,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 //===========================================================================================================
 // Configuring MongoDB, the database
 var db = require('./config/mongoose')();
-// var mongoose = require('./config/mongoose')
 
 //===========================================================================================================
 // View Engine Setup
@@ -88,11 +87,11 @@ app.use(function(req, res, next){
 });
 
 var auth = express.Router();
-require('./routes/auth')(auth, passport, db);
+require('./routes/auth')(auth, passport);
 app.use('/auth', auth);
 
 var secure = express.Router();
-require('./routes/secure')(secure, passport, db);
+require('./routes/secure')(secure, passport);
 app.use('/', secure);
 
 

@@ -1,9 +1,4 @@
-//----------------------------------------------NAV BAR----------------------------------------------------------------------------------
-
-.navbar-brand {
-    margin: 0px;
-    padding: 0px;
-}
+/*//----------------------------------------------NAV BAR----------------------------------------------------------------------------------*/
 
 nav.navbar.navbar-inverse.navbar-custom {  
     background-color: #74AFAD;
@@ -25,6 +20,8 @@ nav.navbar.navbar-inverse.navbar-custom li a:hover{
 
 .navbar-brand {
 	background-color:#558C89;
+    margin: 0px;
+    padding: 15px;
 }
 
 .navbar-brand a:hover {
@@ -32,7 +29,7 @@ nav.navbar.navbar-inverse.navbar-custom li a:hover{
 }
 
 body {
-	padding-top: 50px;
+	padding-top: 30px;
 	font-family: 'Jura', sans-serif;
 	font-weight: 600;
 	margin-top: 40px;
@@ -41,17 +38,19 @@ body {
 	font-size: 16px;
 }
 
-//----------------------------------------FOOTER------------------------------------------------------------------------------------------------
+/*//----------------------------------------FOOTER------------------------------------------------------------------------------------------------*/
 
 .wrapper {
     min-height: 100%;
     height: auto !important;
     height: 100%;
+    position: relative;
     margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
 }
 
 .footer, .push {
     height: 100px; /* .push must be the same height as .footer */
+    width: 100%;
     background-color:#74AFAD;
     position: absolute;
 	right: 0;
@@ -75,42 +74,46 @@ body {
     border-radius: 0px;
 }*/
 
-//------------------------------------------------------LOGIN PAGE-----------------------------------------------------------------------------------------------
+/*//------------------------------------------------------LOGIN PAGE-----------------------------------------------------------------------------------------------*/
+.login-img {
+    height: 250px;
+    width: 300px;
+}
 
 .big-login, .big-register {
-    background-color: #D9853B;
+    /*background-color: #D9853B;*/
     color: #000000;
     border-radius: 7px;
-    border-width: 2px;
+    border-width: 1px;
+    border-color: black;
     font-size: 18px;
-    font-style: normal;
     font-weight: 200;
-    padding: 16px 60px;
     text-transform: uppercase;
     transition: all 0.3s ease 0s;
     width: 200px;
     position: relative;
     left: 50%;
     margin-left: -100px;
+    text-align: center;
 }
 
-.big-login {
+.big-login, .unlink-button, .link-button {
 	background-color: #74AFAD;
 	color: #000000;
 
 }
-.big-login:hover {
+.big-login:hover, .unlink-button:hover, .link-button:hover{
     background-color: #558C89;
     color: #ECECEA;
     border-color: #000000;
 }
 
-.big-register{
+.big-register, .profile-button, #submit {
     background-color: #D9853B;
     color: #000000;
 }
 
-.big-register:hover{
+.big-register:hover, .profile-button:hover, #submit:hover {
     background-color: #C46210;
     border-color: #000000;
     color: #ECECEA;
@@ -120,11 +123,204 @@ body {
 	color: #FF0000;
 }
 
-//---------------------------------------------------------------INDEX PAGE------------------------------------------------------------------------------------
+/*//-------------------------------------------------------------PROFILE PAGE------------------------------------------------------------------------------------*/
 
-/*.btn-facebook, .btn-twitter, .btn-google {
-    max-width:140px; 
-    min-width:140px; 
-    margin-left:auto; 
-    margin-right:auto;
-} */
+/*    @import url(//fonts.googleapis.com/css?family=Lato:400,900);
+    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);*/
+body {
+    padding: 30px 0px;
+}
+
+.animate {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.info-card {
+    width: 100%;
+    border: 1px solid rgb(215, 215, 215);
+    position: relative;
+    font-family: 'Jura', sans-serif;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #74AFAD;
+    border: 1px solid grey;
+    border-radius: 20px; 
+}
+
+.info-card > img {
+    width: 100px;
+    margin-bottom: 60px;
+}
+
+.info-card .info-card-details,
+.info-card .info-card-details .info-card-header  {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    padding: 0 15px;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 18px;
+}
+
+.info-card .info-card-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.info-card .info-card-details::-webkit-scrollbar-button {
+    width: 8px;
+    height: 0px;
+}
+
+.info-card .info-card-details::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.info-card .info-card-details::-webkit-scrollbar-thumb {
+    background: rgb(160, 160, 160);
+}
+
+.info-card .info-card-details::-webkit-scrollbar-thumb:hover {
+    background: rgb(130, 130, 130);
+}   
+
+.info-card .info-card-details .info-card-header {
+    height: auto;       
+    bottom: 100%;
+    padding: 10px 5px;
+}
+
+.info-card:hover .info-card-details {
+    bottom: 0px;
+    overflow: auto;
+    padding-bottom: 25px;
+}
+
+.info-card:hover .info-card-details .info-card-header {
+    position: relative;
+    bottom: 0px;
+    padding-top: 45px;
+    padding-bottom: 25px;
+}
+
+.info-card .info-card-details .info-card-header h1, 
+.info-card .info-card-details .info-card-header h3 {
+    color: rgb(62, 62, 62);
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.info-card .info-card-details .info-card-header h3 {
+    color: rgb(142, 182, 52);
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.info-card .info-card-details .info-card-detail .social {
+    list-style: none;
+    padding: 0px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.info-card .info-card-details .info-card-detail .social a {
+    position: relative;
+    display: inline-block;
+    min-width: 40px;
+    padding: 10px 0px;
+    margin: 0px 5px;
+    overflow: hidden;
+    text-align: center;
+    background-color: rgb(215, 215, 215);
+    border-radius: 40px;
+}
+
+a.social-icon {
+    text-decoration: none !important;
+    box-shadow: 0px 0px 1px rgb(51, 51, 51);
+    box-shadow: 0px 0px 1px rgba(51, 51, 51, 0.7);
+}
+
+a.social-icon:hover {
+    color: rgb(255, 255, 255) !important;
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+a.facebook {
+    color: rgb(59, 90, 154) !important;
+}
+
+a.facebook:hover {      
+    background-color: rgb(59, 90, 154) !important;
+}
+
+a.twitter {
+    color: rgb(45, 168, 225) !important;
+}
+
+a.twitter:hover {
+    background-color: rgb(45, 168, 225) !important;
+}
+
+a.google-plus {
+    color: rgb(244, 94, 75) !important;
+}
+
+a.google-plus:hover {
+    background-color: rgb(244, 94, 75) !important;
+}
+
+/*user overview panel*/
+
+.info-overview {
+    background-color: #74AFAD;
+    border-radius: 10px;
+} 
+
+/*review box*/
+
+.form-area {
+    background-color: #74AFAD;
+    padding: 10px 40px 60px;
+    margin: 10px 0px 60px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+#characterLeft {
+    color: black;
+}
+
+#characterLeft.red {
+    color: red;
+}
+
+/*rating*/
+
+
+/*index page*/
+
+.index-page {
+    margin-top: 60px;
+}
+
+/*reviews page*/
+
