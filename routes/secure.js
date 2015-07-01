@@ -1,7 +1,6 @@
 // ROUTER THAT HANDLES ALL SECURE PAGES, WHERE USER IS AUTHENTICATED
 var Review = require('../models/review');
 var Book = require('../models/book');
-var Author = require('../models/author');
 
 module.exports = function(router, passport){
     // make sure a user is logged in
