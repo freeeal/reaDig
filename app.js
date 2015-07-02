@@ -14,14 +14,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //===========================================================================================================
+var config = require('./config/config');
+console.log(config);
 // Set the 'NODE_ENV' variable
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // process.env.NODE_ENV variable determines our environment and configures Express app accordingly
-  if (process.env.NODE_ENV === 'development') { 
+  if (process.env.NODE_ENV === 'dev') { 
     app.use(logger('dev'));
   } 
-  else if (process.env.NODE_ENV === 'production') {
+  else if (process.env.NODE_ENV === 'prod') {
     app.use(compress());
   }
 
