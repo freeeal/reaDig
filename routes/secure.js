@@ -19,10 +19,9 @@ module.exports = function(router, passport){
             message : req.flash('message'),
             author : req.author,
             book : req.book
-
         }); 
     });
-
+    
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
         res.render('edit-profile', { user : req.user });
