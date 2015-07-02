@@ -23,7 +23,6 @@
     "jade": "~1.9.2",
     "jquery": "^2.1.4",
     "mocha": "~1.14.0",
-    "mongodb-uri": "^0.9.7",
     "mongoose": "^4.0.6",
     "morgan": "~1.5.3",
     "passport": "^0.2.1",
