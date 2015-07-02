@@ -47,7 +47,10 @@ var UserSchema = new Schema({
 
 // Set the 'fullName' virtual property for local acct
 UserSchema.virtual('local.fullName').get(function() {
-	return this.local.firstName + ' ' + this.local.lastName;
+    if (this.local.firstName == null || this.local.lastName == null)
+        return null;
+    else
+	    return this.local.firstName + ' ' + this.local.lastName;
 }).set(function(fullName) {
 	var splitName = fullName.split(' ');
 	this.local.firstName = splitName[0] || '';
