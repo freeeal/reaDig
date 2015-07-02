@@ -52,11 +52,11 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var MongoStore = require('connect-mongo')(expressSession);
 app.use(expressSession({
-    secret: 'foo',
+    secret: 'abc123',
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ 
-      url: 'mongodb://localhost/readig-development',
+      url: 'config.db',
       ttl: 3*24*60*60 // stores session 'time to live (in seconds)'
     })
 }));
