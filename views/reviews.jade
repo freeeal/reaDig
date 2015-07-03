@@ -9,7 +9,7 @@ block content
           .review-listing.text-left
             - each review in reviews
                 .well
-                  h2.review-bookName #{review.bookName}
+                  h2.review-heading #{review.bookName}
                     .review-listing-detail
                       h4= review.reviewBody
                         br
@@ -21,7 +21,6 @@ block content
                             while i<=rating
                               span.glyphicon.glyphicon-star
                               - i++
-                            if i!=5
-                              while i<=5
-                                span.glyphicon.glyphicon-star-empty
-                                - i++
+                            while i<=5
+                              span.glyphicon.glyphicon-star-empty
+                              - i++
