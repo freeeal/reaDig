@@ -17,11 +17,10 @@ module.exports = function(router, passport){
         res.render('profile', { 
             user : req.user,                            // get the user out of session and pass to template
             message : req.flash('message'),
-            author : req.author,
             book : req.book
         }); 
     });
-    
+
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
         res.render('edit-profile', { user : req.user });
@@ -129,7 +128,8 @@ module.exports = function(router, passport){
     router.get('/reviews', function(req, res) {
         res.render('reviews', {
             user: req.user,
-            reviews : req.user.reviews
+            reviews : req.user.reviews,
+            book: req.book
         });
     });
 
