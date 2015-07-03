@@ -28,7 +28,42 @@ module.exports = function() {
 			"bookName" : "Twilight (#1)",
    			"authorName" : "Stephenie Meyer",
    			"reviews" : []
-   		}
+   		},
+   		{
+			"bookName" : "The Giver (#1)",
+    		"authorName" : "Lois Lowry",
+    		"reviews" : []
+   		},
+   		{
+   			"bookName" : "The Fault in Our Stars",
+    		"authorName" : "John Green",
+    		"reviews" : []
+   		},
+   		{
+   			"bookName" : "To Kill a Mockingbird",
+    		"authorName" : "Harper Lee",
+    		"reviews" : []
+    	},
+    	{
+    		"bookName" : "The Book Thief",
+   			"authorName" : "Markus Zusak",
+    		"reviews" : []
+    	},
+    	{
+    		"bookName" : "The Perks of Being a Wallflower",
+    		"authorName" : "Stephen Chbosky",
+    		"reviews" : []
+		},
+		{
+			"bookName" : "The Hunger Games (#1)",
+    		"authorName" : "Suzanne Collins",
+    		"reviews" : []
+		},
+		{
+			"bookName" : "The Hobbit",
+    		"authorName" : "J.R.R. Tolkien",
+    		"reviews" : []
+		}
 	];
 	
 	var reviews = require('../models/review');
