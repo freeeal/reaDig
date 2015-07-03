@@ -23,7 +23,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
   if (process.env.NODE_ENV === 'dev') { 
     app.use(logger('dev'));
   } 
-  else {
+  else if (process.env.NODE_ENV === 'prod') {
     app.use(compress());
   }
 
