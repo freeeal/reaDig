@@ -9,10 +9,6 @@ try {
   var dev = {};
 }
 
-// var getVal = function(key) {
-//   return process.env[key] || config[key]
-// };
-
 module.exports = {
 	db: process.env.MONGOLAB_URI || dev['db'],
 	secretSecret: process.env.SESSION_SECRET || dev['sessionSecret'],
