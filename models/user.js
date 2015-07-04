@@ -14,7 +14,7 @@ var UserSchema = new Schema({
 
 	local            : {
 		id 			 : String, 
-		username	 : String,
+		username	 : { type: String, unique: true },
 		password     : String,
         email        : String,
         firstName	 : String,
