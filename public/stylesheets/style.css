@@ -226,6 +226,11 @@ body {
     margin-top: 5px;
 }
 
+.info-card .info-card-details .info-card-detail .form-aboutMe {
+    background-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
 .info-card .info-card-details .info-card-detail .social {
     list-style: none;
     padding: 0px;
@@ -244,6 +249,7 @@ body {
     background-color: rgb(215, 215, 215);
     border-radius: 40px;
 }
+
 
 a.social-icon {
     text-decoration: none !important;

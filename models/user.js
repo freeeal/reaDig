@@ -41,7 +41,8 @@ var UserSchema = new Schema({
         fullName	 : String,
         url			 : String
     },
-    reviews: [ReviewSchema]
+    reviews: [ReviewSchema],
+    aboutMe: String
 
 });
 

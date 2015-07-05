@@ -9,13 +9,17 @@ block content
           br
           .info-card
             img(style='width:75%', src='https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xap1/t31.0-8/1268676_10204873052168894_3265072449209722771_o.jpg')
-            .info-card-details.animate(class='[ ]')
-              .info-card-header(class='[ ]')
+            .info-card-details.animate
+              .info-card-header
                 h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}
                 h3(style='color:#558C89') #{user.local.username || user.twitter.username}
-              .info-card-detail(class='[ ]')
-                p
-                  | The idea of creating something out of nothing has always generated a passion in my heart. This is what lead me to website development. I can literally create little worlds that hopefully thousands of people can see and even experience.
+              .info-card-detail
+                if user.aboutMe
+                  p #{user.aboutMe}
+                  span.glyphicon.glyphicon-edit
+                else
+                  form(class='form-aboutMe', action='/profile', method='POST')
+                    input(type='text', name='aboutMe', class='form-control', placeholder='tell us something about you!', autofocus)
                 .social
                   if user.facebook.token
                     a.social-icon.facebook.animate(href='#{user.facebook.url}', class='[ ]')
@@ -34,14 +38,15 @@ block content
                 h4 33
               |                 
               .col-md-4.user-pad.text-center
-                h3(href='/reviews') reviews
+                h3
+                a(href='/reviews', style='color:black') reviews
                 |                     
                 h4 #{user.reviews.length}
               |                 
               .col-md-4.user-pad.text-center
                 h3 friends
                 |                     
-                h4 101  
+                h4 10
           br          
           a(href='/account', class='btn btn-primary profile-button') edit profile            
 
