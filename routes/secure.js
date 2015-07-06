@@ -1,6 +1,8 @@
 // ROUTER THAT HANDLES ALL SECURE PAGES, WHERE USER IS AUTHENTICATED
 var Review = require('../models/review');
 var Book = require('../models/book');
+var User = require('../models/user');
+// var Friend = require('../models/friend');
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -119,12 +121,11 @@ module.exports = function(router, passport){
                         }
                     })
                 }
-
             })
-
 
     });
 
+    // RENDER REVIEWS LIST ===================================
     router.get('/reviews', function(req, res) {
         res.render('reviews', {
             user: req.user,
@@ -132,6 +133,54 @@ module.exports = function(router, passport){
             book: req.book
         });
     });
+
+    // RENDER FRIENDS LIST ===================================
+    router.get('/friends', function(req, res) {
+        res.render('friends', {
+            user: req.user
+            // friends: req.user.friends
+        })
+    })
+
+    // (MODAL) ADD FRIENDS POST ==================================
+    router.post('/friends', function(req, res, user, friendName) {
+
+        console.log('hi');
+        var user1 = req.user;
+        var friendFullName = req.body.friendName;
+        console.log(friendFullName);
+
+            User.findOne({ 'local.fullName' :  friendFullName }, function(err, user2) {
+                    // In case of any error, return using the done method. This is a server exception in which err is set to a non-null value
+                    if (err) 
+                        return done(err);
+
+                    if (!user2) {
+                        req.flash('message', 'could not find that user. try again!');
+                        res.redirect('/friends');
+                    }
+
+                    if (user2) {
+                        console.log('user found with name ' + friendFullName);
+
+                        User.requestFriend(user1.local.id, user2.local.id, function() {
+                            console.log('you requested friend: ' + friendFullName);
+                            res.redirect('/friends');
+                        });
+                    }
+                    
+                }
+            );
+    });
+
+    // router.get('/getFriends', function(req, res){
+    //     friends.getFriends(req, res);
+    // })
+
+    // router.post('/remove_friend', function(req, res){
+    //     console.log('made it to routes', req.body);
+    //     friends.removeFriend(req, res);
+    // })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {

@@ -9,6 +9,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // locally configured Mongo DB instance, storing the user details in the database.
 var bcrypt = require('bcrypt-nodejs');
 var ReviewSchema = mongoose.model('Review').schema;
+// var FriendSchema = mongoose.model('Friend').schema;
+var friends = require('mongoose-friends');
 
 var UserSchema = new Schema({
 
@@ -41,8 +43,9 @@ var UserSchema = new Schema({
         fullName	 : String,
         url			 : String
     },
-    reviews: [ReviewSchema],
-    aboutMe: String
+    reviews: [ReviewSchema]
+    // friends: [FriendSchema]
+    // aboutMe: String
 
 });
 
@@ -75,5 +78,6 @@ UserSchema.set('toJSON', { getters: true, virtuals: true});	// forces Mongoose t
 
 
 UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(friends());
 
 module.exports = mongoose.model('User', UserSchema);
