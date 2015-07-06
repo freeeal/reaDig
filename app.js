@@ -52,7 +52,7 @@ var expressSession = require('express-session');
 var MongoStore = require('connect-mongo')(expressSession);
 app.use(expressSession({
     secret: 'abc123',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     store: new MongoStore({ 
       url: config.db,
