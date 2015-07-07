@@ -143,27 +143,26 @@ module.exports = function(router, passport){
     })
 
     // (MODAL) ADD FRIENDS POST ==================================
-    router.post('/friends', function(req, res, user, friendName) {
-
-        console.log('hi');
+    router.post('/friends', function(req, res, friendName) {
         var user1 = req.user;
         var friendFullName = req.body.friendName;
         console.log(friendFullName);
 
-            User.findOne({ 'local.fullName' :  friendFullName }, function(err, user2) {
+            User.findOne({ 'local.fullName' :  friendFullName }, function(err, user) {
                     // In case of any error, return using the done method. This is a server exception in which err is set to a non-null value
                     if (err) 
                         return done(err);
-
-                    if (!user2) {
+                    
+                    if (!user) {
                         req.flash('message', 'could not find that user. try again!');
                         res.redirect('/friends');
                     }
 
-                    if (user2) {
+                    if (user) {
                         console.log('user found with name ' + friendFullName);
+                        var user2 = user;
 
-                        User.requestFriend(user1.local.id, user2.local.id, function() {
+                        User.requestFriend(user1.local, user2.local, function() {
                             console.log('you requested friend: ' + friendFullName);
                             res.redirect('/friends');
                         });

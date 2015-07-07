@@ -43,23 +43,42 @@ block content
                   span.visible-xs
                     span.text-muted send rcommendation
                     br
-
                 .clearfix
-      #add-friend.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='mySmallModalLabel', aria-hidden='true')
-        .modal-dialog.modal-sm
+              li.list-group-item
+                .col-xs-12.col-sm-3
+                  img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                .col-xs-12.col-sm-9
+                  span.name #{friendName}
+                  br
+                  span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
+                  span.visible-xs
+                    span.text-muted see reviews
+                    br
+                  span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
+                  span.visible-xs
+                    span.text-muted share comments
+                    br
+                  span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
+                  span.visible-xs
+                    span.text-muted send rcommendation
+                    br
+                .clearfix
+
+      #addFriend.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog.modal-sm.animated
           .modal-content
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-              h4#mySmallModalLabel.modal-title.text-center
+              h4.modal-title.text-center
                 strong
                   | FIND YOUR FRIENDS
             .modal-body
               .container-fluid
-                form(class='find-friend', style='text-center', action='/friends', method='POST')
+                form(class='find-friend', style='text-center', action='/friends', method='POST', accept-charset='UTF-8')
                   .form-group
                     input(type='text', name='friendName', class='form-control', placeholder='enter their full name', required, autofocus)
 
                   #message
                     if message
                       h3.text-center.error-message #{message}
-                  button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit
+                  button#submit(class='btn btn-md btn-primary btn-block', type='submit', onclick='friendAjax()') submit

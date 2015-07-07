@@ -13,7 +13,7 @@ $(function () {
     });
     $('a[href="#add-friend"]').on('click', function(event) {
         event.preventDefault();
-        $('#add-friend').modal('show');
+        $('#addFriend').modal('show');
     })
     
     $('[data-command="toggle-search"]').on('click', function(event) {
@@ -38,4 +38,30 @@ $(function () {
             elem.slideUp( 100 );
         }
     })
+
+
 });
+
+
+
+function friendAjax(){
+
+    $.post( "/friends", function( data ) {
+            if(data == 1){
+                window.location.replace("/friends");            
+            } 
+            else {
+                shakeModal(); 
+            }
+        });
+
+}
+
+function shakeModal(){
+    $('#addFriend .modal-dialog').addClass('shake');
+             $('.error').addClass('alert alert-danger').html("user not found!");
+             $('input[type="text"]').val('');
+             setTimeout( function(){ 
+                $('#addFriend .modal-dialog').removeClass('shake'); 
+    }, 1000 ); 
+}
