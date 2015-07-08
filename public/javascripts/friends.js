@@ -44,22 +44,21 @@ $(function () {
         alert('clicked');
         // console.log($("#friendName").val());
         // 'data' is the stuff in the server response
-        $.post("/friends", function (data) {
-                                console.log("this is " + data);
-                                if (data.success == true) {
-                                    window.location.href = "/friends";            
-                                } 
-                                else {
-                                    shakeModal(); 
-                                }
-                    }
-        );
+        // $.post("/friends", function (err, data) {
+        //     if (err) throw err;
+        //     console.log("this is " + data);
+        //     if (data.success == true) {
+        //         window.location.href = "/friends";            
+        //     } 
+        //     else {
+        //            shakeModal(); 
+        //     }
+        // });
     });
 
 });
 
 
-    
 
 function shakeModal() {
 

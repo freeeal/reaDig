@@ -12,7 +12,7 @@ module.exports = function(passport){
                 // find a user in Mongo with provided username
                 User.findOne({ 'local.username' :  username }, function(err, user) {
                     // In case of any error, return using the done method
-                    if (err){
+                    if (err) {
                         console.log('error in sign up: ' + err);
                         return done(err);
                     }

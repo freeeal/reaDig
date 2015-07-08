@@ -147,45 +147,53 @@ module.exports = function(router, passport){
         
         var friendFullName = req.body.friendName;
         console.log(friendFullName);
+        var friendFirstName, friendLastName;
 
-        User.findOne({$or: [
-            { 'local.fullName' : friendFullName },
-            { 'facebook.fullName' : friendFullName }
-        ]}).exec(function(err, user) {
+        function splitName (fullName) {
+            var splitName = fullName.split(' ');
+            return splitName;
+        };
 
-            if (err) throw err;
+        var arrFullName = splitName(friendFullName);
+        friendFirstName = arrFullName[0];
+        friendLastName = arrFullName[1];
 
-            if (!user) {
-                console.log('blah');
-                // req.flash('message', 'could not find that user. try again!');
-                res.send({ success : false });
-            } //no such users.
+        process.nextTick(function(friendFirstName, friendLastName) {
+            User.findOne({$or: [
+                            { 'facebook.fullName' : friendFullName },
+                            { 'twitter.fullName' : friendFullName },
+                            { 'google.fullName' : friendFullName },
+                            { $and: [{ 'local.firstName' : friendFirstName }, { 'local.lastName' : friendLastName }] }
+                        ]}, function(err, user) {
 
-            else {
-                console.log('user found with name ' + friendFullName);
-                var user1 = req.user;
-                var user2 = user;
+                if (err) throw err;
 
-                User.requestFriend(user1._id, user2._id, function() {
-                    console.log('you requested friend: ' + user2._id);
-                    
-                });
+                if (!user) {
+                    console.log('blah');
+                    // req.flash('message', 'could not find that user. try again!');
+                    res.send({ success : false });
+                } //no such users.
 
-                res.send({ success : true });
-                
-            } //user already exists
+                else {
+                    console.log('user found with name ' + friendName);
+                    var user1 = req.user;
+                    var user2 = user;
 
+                    User.requestFriend(user1._id, user2._id, function() {
+                        console.log('you requested friend: ' + user2._id);
+                        
+                    });
 
+                    res.send({ success : true });
+                } //user already exists
+
+            });
         });
+
     });
 
     // router.get('/getFriends', function(req, res){
     //     friends.getFriends(req, res);
-    // })
-
-    // router.post('/remove_friend', function(req, res){
-    //     console.log('made it to routes', req.body);
-    //     friends.removeFriend(req, res);
     // })
 
     // catch-all route, redirects all invalid paths to the profile
