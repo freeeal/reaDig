@@ -450,7 +450,7 @@ ul.c-controls li a:hover {
     animation-name: shake;
 }
 
-/*.addFriend .modal-dialog{
+.addFriend .modal-dialog{
     width: 350px;
 }
 .addFriend .modal-footer{
@@ -461,5 +461,5 @@ ul.c-controls li a:hover {
 .addFriend .modal-header {
     border: 0 none;
     padding: 15px 15px 15px;
-/*     padding: 11px 15px; */
+/*     padding: 11px 15px; 
 }*/

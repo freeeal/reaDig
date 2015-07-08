@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  script(src='//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js')
+  script(src='/javascripts/friends.js', type='text/javascript')
   div.container-fluid
     div.text-center.friend-panel
           br
@@ -76,9 +78,9 @@ block content
               .container-fluid
                 form(class='find-friend', style='text-center', action='/friends', method='POST', accept-charset='UTF-8')
                   .form-group
-                    input(type='text', name='friendName', class='form-control', placeholder='enter their full name', required, autofocus)
+                    input#friendName(type='text', name='friendName', class='form-control', placeholder='enter their full name', required, autofocus)
 
                   #message
                     if message
                       h3.text-center.error-message #{message}
-                  button#submit(class='btn btn-md btn-primary btn-block', type='submit', onclick='friendAjax()') submit
+                  button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit

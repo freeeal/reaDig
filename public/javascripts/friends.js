@@ -39,29 +39,36 @@ $(function () {
         }
     })
 
+    // AJAX response to secure.js's request handler for search of friend
+    $("#submit").click(function(){
+        alert('clicked');
+        // console.log($("#friendName").val());
+        // 'data' is the stuff in the server response
+        $.post("/friends", function (data) {
+                                console.log("this is " + data);
+                                if (data.success == true) {
+                                    window.location.href = "/friends";            
+                                } 
+                                else {
+                                    shakeModal(); 
+                                }
+                    }
+        );
+    });
 
 });
 
 
+    
 
-function friendAjax(){
+function shakeModal() {
 
-    $.post( "/friends", function( data ) {
-            if(data == 1){
-                window.location.replace("/friends");            
-            } 
-            else {
-                shakeModal(); 
-            }
-        });
-
-}
-
-function shakeModal(){
     $('#addFriend .modal-dialog').addClass('shake');
-             $('.error').addClass('alert alert-danger').html("user not found!");
-             $('input[type="text"]').val('');
-             setTimeout( function(){ 
-                $('#addFriend .modal-dialog').removeClass('shake'); 
-    }, 1000 ); 
+    $('.error').addClass('alert alert-danger').html("user not found!");
+    $('input#friendName[type="text"]').val('');
+
+    setTimeout(function() { 
+        $('#addFriend .modal-dialog').removeClass('shake'); 
+    }, 1000); 
+
 }

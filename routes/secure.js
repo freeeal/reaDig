@@ -144,32 +144,39 @@ module.exports = function(router, passport){
 
     // (MODAL) ADD FRIENDS POST ==================================
     router.post('/friends', function(req, res, friendName) {
-        var user1 = req.user;
+        
         var friendFullName = req.body.friendName;
         console.log(friendFullName);
 
-            User.findOne({ 'local.fullName' :  friendFullName }, function(err, user) {
-                    // In case of any error, return using the done method. This is a server exception in which err is set to a non-null value
-                    if (err) 
-                        return done(err);
-                    
-                    if (!user) {
-                        req.flash('message', 'could not find that user. try again!');
-                        res.redirect('/friends');
-                    }
+        User.findOne({$or: [
+            { 'local.fullName' : friendFullName },
+            { 'facebook.fullName' : friendFullName }
+        ]}).exec(function(err, user) {
 
-                    if (user) {
-                        console.log('user found with name ' + friendFullName);
-                        var user2 = user;
+            if (err) throw err;
 
-                        User.requestFriend(user1.local, user2.local, function() {
-                            console.log('you requested friend: ' + friendFullName);
-                            res.redirect('/friends');
-                        });
-                    }
+            if (!user) {
+                console.log('blah');
+                // req.flash('message', 'could not find that user. try again!');
+                res.send({ success : false });
+            } //no such users.
+
+            else {
+                console.log('user found with name ' + friendFullName);
+                var user1 = req.user;
+                var user2 = user;
+
+                User.requestFriend(user1._id, user2._id, function() {
+                    console.log('you requested friend: ' + user2._id);
                     
-                }
-            );
+                });
+
+                res.send({ success : true });
+                
+            } //user already exists
+
+
+        });
     });
 
     // router.get('/getFriends', function(req, res){

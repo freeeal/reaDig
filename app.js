@@ -15,7 +15,7 @@ var bodyParser = require('body-parser');
 
 //===========================================================================================================
 var config = require('./config/config');
-console.log(config);
+// console.log(config); // for testing
 // Set the 'NODE_ENV' variable
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
@@ -67,12 +67,6 @@ app.use(passport.session()); // passport.session() middleware to support persist
 var flash = require('connect-flash'); // must be placed after session!
 app.use(flash()); // allows creating and retrieving of flash messages
 
-// app.use(function(req, res, next) {
-//   console.log(req.session);
-//   console.log("================================");
-//   console.log(req.user);
-// });
-
 //===========================================================================================================
 // Initialize Passport
 var initPassport = require('./config/passport/init');
@@ -82,10 +76,10 @@ initPassport(passport); // pass passport in for configuration
 // var routes = require('./routes/index')(passport, db); // app.use mounts the index.js router instance
 // app.use('/', routes); // chaining after route definitions
 
-app.use(function(req, res, next){
-  console.log("" + req.user);
-  next();
-});
+// app.use(function(req, res, next){
+//   console.log("" + req.user); // for testing
+//   next();
+// });
 
 var auth = express.Router();
 require('./routes/auth')(auth, passport);
