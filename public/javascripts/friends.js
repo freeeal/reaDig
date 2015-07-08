@@ -38,19 +38,34 @@ $(function () {
             elem.slideUp( 100 );
         }
     })
-
     // AJAX response to secure.js's request handler for search of friend
-    $("#submit").click(function(){
+    $('#findFriend').on('click', function(event) {
+        console.log('hi')
+        event.preventDefault();
+        
         // alert('clicked');
         // console.log($("#friendName").val());
         //'data' is the stuff in the server response
-        $.post("/friends").done(function(data) {
-            console.log("this is " + data);
-            if (data ==1) {
+        // $.ajax({
+        //             type: "POST",
+        //             url: "/friends",
+        //             dataType: 'json',
+        //             contentType: "application/json; charset=utf-8",
+        //             success: function(data) {
+        //                         console.log("this is" + data);
+        //                     },
+        //             error: function(data){
+        //                 alert("fail");
+        //             }
+        //         });
+        $.post("/friends", function (data) {
+            console.log("hi");
+            if (data.success) {
                 window.location.href = "/friends";            
             } 
             else {
-                   shakeModal(); 
+                //e.p
+                   // shakeModal(); 
             }
         });
     });
@@ -59,14 +74,14 @@ $(function () {
 
 
 
-function shakeModal() {
+// function shakeModal() {
 
-    $('#addFriend .modal-dialog').addClass('shake');
-    $('.error').addClass('alert alert-danger').html("user not found!");
-    $('input#friendName[type="text"]').val('');
+//     $('#addFriend .modal-dialog').addClass('shake');
+//     $('.error').addClass('alert alert-danger').html("user not found!");
+//     $('input#friendName[type="text"]').val('');
 
-    setTimeout(function() { 
-        $('#addFriend .modal-dialog').removeClass('shake'); 
-    }, 1000); 
+//     setTimeout(function() { 
+//         $('#addFriend .modal-dialog').removeClass('shake'); 
+//     }, 1000); 
 
-}
+// }

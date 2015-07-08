@@ -76,11 +76,11 @@ block content
                   | FIND YOUR FRIENDS
             .modal-body
               .container-fluid
-                form(class='find-friend', style='text-center', action='/friends', method='POST', accept-charset='UTF-8')
+                form(class='find-friend', style='text-center', action='/friends', method='POST')
                   .form-group
-                    input#friendName(type='text', name='friendName', class='form-control', placeholder='enter their full name', required, autofocus)
+                    input#friendName(type='text', name='friendName', class='form-control', placeholder='enter their full name', required)
 
                   #message
                     if message
                       h3.text-center.error-message #{message}
-                  button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit
+                    button#findFriend(class='btn btn-md btn-primary btn-block', type='submit') submit
