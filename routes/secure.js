@@ -158,7 +158,7 @@ module.exports = function(router, passport){
         friendFirstName = arrFullName[0];
         friendLastName = arrFullName[1];
 
-        process.nextTick(function(friendFirstName, friendLastName) {
+        process.nextTick(function() {
             User.findOne({$or: [
                             { 'facebook.fullName' : friendFullName },
                             { 'twitter.fullName' : friendFullName },
@@ -175,7 +175,7 @@ module.exports = function(router, passport){
                 } //no such users.
 
                 else {
-                    console.log('user found with name ' + friendName);
+                    console.log('user found with name ' + friendFullName);
                     var user1 = req.user;
                     var user2 = user;
 

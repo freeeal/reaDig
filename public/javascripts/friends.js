@@ -41,19 +41,18 @@ $(function () {
 
     // AJAX response to secure.js's request handler for search of friend
     $("#submit").click(function(){
-        alert('clicked');
+        // alert('clicked');
         // console.log($("#friendName").val());
-        // 'data' is the stuff in the server response
-        // $.post("/friends", function (err, data) {
-        //     if (err) throw err;
-        //     console.log("this is " + data);
-        //     if (data.success == true) {
-        //         window.location.href = "/friends";            
-        //     } 
-        //     else {
-        //            shakeModal(); 
-        //     }
-        // });
+        //'data' is the stuff in the server response
+        $.post("/friends").done(function(data) {
+            console.log("this is " + data);
+            if (data ==1) {
+                window.location.href = "/friends";            
+            } 
+            else {
+                   shakeModal(); 
+            }
+        });
     });
 
 });

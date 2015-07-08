@@ -1,14 +1,14 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var User = require('../../models/user');
 
-module.exports = function(passport){
+module.exports = function(passport) {
 
     passport.use('local-signup', new LocalStrategy({
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
 
-            process.nextTick(function(){ // execute function in the next tick of the event loop
+            process.nextTick(function() { // execute function in the next tick of the event loop
                 // find a user in Mongo with provided username
                 User.findOne({ 'local.username' :  username }, function(err, user) {
                     // In case of any error, return using the done method
