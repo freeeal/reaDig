@@ -2,7 +2,9 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
-// var Friend = require('../models/friend');
+// create application/x-www-form-urlencoded parser
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -142,10 +144,11 @@ module.exports = function(router, passport){
         })
     })
 
-    // (MODAL) ADD FRIENDS POST ==================================
-    router.post('/friends', function(req, res, friendName) {
+    // ADD FRIENDS POST /friends gets urlencoded bodies ================
+    router.post('/friends', urlencodedParser, function(req, res, friendName) {
         
         var friendFullName = req.body.friendName;
+        // var friendFullName = friendName;
         console.log(friendFullName);
         var friendFirstName, friendLastName;
 
@@ -159,7 +162,7 @@ module.exports = function(router, passport){
         friendLastName = arrFullName[1];
 
         process.nextTick(function() {
-            User.findOne({$or: [
+            User.findOne({$or: [ 
                             { 'facebook.fullName' : friendFullName },
                             { 'twitter.fullName' : friendFullName },
                             { 'google.fullName' : friendFullName },
