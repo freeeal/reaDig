@@ -32,7 +32,7 @@ module.exports = function(passport) {
                         newUser.local.email = req.body.email;
                         newUser.local.firstName = req.body.firstName;
                         newUser.local.lastName = req.body.lastName;
-
+                        
                         // save the user
                         newUser.save(function(err) {
                             if (err){

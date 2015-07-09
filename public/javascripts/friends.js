@@ -40,25 +40,10 @@ $(function () {
     })
     // AJAX response to secure.js's request handler for search of friend
     $('#findFriend').click(function(event) {
-        console.log('hi');
+        
         event.preventDefault();
-
-        // alert('clicked');
         var friendName = $("#friendName").val();
-        //'data' is the stuff in the server response
-        // $.ajax({
-        //             type: "POST",
-        //             url: "/friends"
-        //         }).done(function(data){
-        //             console.log('this is ' + data);
-        //         });
-        //             // success: function(data) {
-        //             //             console.log("this is" + data);
-        //             //         },
-        //             // error:  function(data) {
-        //             //             alert("fail");
-        //             //         }
-        //         // });
+   
         $.post("/friends", {friendName : friendName}, function (data) {
             if (data.success == true) {
                 window.location.href = "/friends";            

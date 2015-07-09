@@ -3,8 +3,7 @@ var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
 // create application/x-www-form-urlencoded parser
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var urlencodedParser = require('body-parser').urlencoded({ extended: false });
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -138,17 +137,45 @@ module.exports = function(router, passport){
 
     // RENDER FRIENDS LIST ===================================
     router.get('/friends', function(req, res) {
-        res.render('friends', {
-            user: req.user
-            // friends: req.user.friends
-        })
+
+        var user = req.user;
+        var requestedFriends = [];
+        var pendingFriends = [];
+        var acceptedFriends = [];
+
+        User.getFriends(user, function (err, friends) {
+             // friends looks like:
+             // [{status: "requested", added: <Date added>, friend: user2}]
+            for (var i = 0; i<friends.length; i++) {
+                if (friends[i].status === "requested") {
+                    requestedFriends.push(friends[i]);
+                    console.log(requestedFriends);
+                }
+                if (friends[i].status === "pending") {
+                    pendingFriends.push(friends[i]);
+                    console.log(pendingFriends);
+                }
+                if (friends[i].status === "accepted") {
+                    acceptedFriends.push(friends[i]);
+                    console.log(acceptedFriends);
+                }
+               
+            }
+        });
+
+        res.render('friends', { 
+            user: user,
+            requestedFriends: requestedFriends,
+            pendingFriends: pendingFriends,
+            acceptedFriends: acceptedFriends
+        });
+
     })
 
-    // ADD FRIENDS POST /friends gets urlencoded bodies ================
+    // ADD FRIENDS POST /friends (gets urlencoded bodies) ================
     router.post('/friends', urlencodedParser, function(req, res, friendName) {
         
         var friendFullName = req.body.friendName;
-        // var friendFullName = friendName;
         console.log(friendFullName);
         var friendFirstName, friendLastName;
 
@@ -161,6 +188,7 @@ module.exports = function(router, passport){
         friendFirstName = arrFullName[0];
         friendLastName = arrFullName[1];
 
+        // requesting a friend
         process.nextTick(function() {
             User.findOne({$or: [ 
                             { 'facebook.fullName' : friendFullName },
@@ -173,7 +201,6 @@ module.exports = function(router, passport){
 
                 if (!user) {
                     console.log('blah');
-                    // req.flash('message', 'could not find that user. try again!');
                     res.send({ success : false });
                 } //no such users.
 
@@ -194,10 +221,6 @@ module.exports = function(router, passport){
         });
 
     });
-
-    // router.get('/getFriends', function(req, res){
-    //     friends.getFriends(req, res);
-    // })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {

@@ -27,44 +27,68 @@ block content
                     button.btn.btn-default(type='button')
                       span.glyphicon.glyphicon-search.text-muted
             ul#friend-list.list-group
-              li.list-group-item
-                .col-xs-12.col-sm-3
-                  img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
-                .col-xs-12.col-sm-9
-                  span.name Scott Stevens
-                  br
-                  span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
-                  span.visible-xs
-                    span.text-muted see reviews
+              - var i = 0
+                while i < requestedFriends.length
+                li.list-group-item
+                  .col-xs-12.col-sm-3 #{requestedFriends.friend}
+                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                  .col-xs-12.col-sm-9 accepted:
+                    span.name 
+                    a(href='/reviews', style='color:black') reviews
                     br
-                  span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
-                  span.visible-xs
-                    span.text-muted share comments
+                    span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
+                    span.visible-xs
+                      span.text-muted see reviews
+                      br
+                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
+                    span.visible-xs
+                      span.text-muted share comments
+                      br
+                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
+                    span.visible-xs
+                      span.text-muted send recommendation
+                      br
+                  .clearfix
+                  - i++
+
+                li.list-group-item requested:
+                  .col-xs-12.col-sm-3 
+                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                  .col-xs-12.col-sm-9 
+                    span.name a
                     br
-                  span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
-                  span.visible-xs
-                    span.text-muted send rcommendation
+                    span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
+                    span.visible-xs
+                      span.text-muted see reviews
+                      br
+                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
+                    span.visible-xs
+                      span.text-muted share comments
+                      br
+                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
+                    span.visible-xs
+                      span.text-muted send recommendation
+                      br
+                  .clearfix
+                li.list-group-item pending:
+                  .col-xs-12.col-sm-3
+                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                  .col-xs-12.col-sm-9
+                    span.name 
                     br
-                .clearfix
-              li.list-group-item
-                .col-xs-12.col-sm-3
-                  img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
-                .col-xs-12.col-sm-9
-                  span.name #{friendName}
-                  br
-                  span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
-                  span.visible-xs
-                    span.text-muted see reviews
-                    br
-                  span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
-                  span.visible-xs
-                    span.text-muted share comments
-                    br
-                  span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
-                  span.visible-xs
-                    span.text-muted send rcommendation
-                    br
-                .clearfix
+                    span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
+                    span.visible-xs
+                      span.text-muted see reviews
+                      br
+                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
+                    span.visible-xs
+                      span.text-muted share comments
+                      br
+                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
+                    span.visible-xs
+                      span.text-muted send recommendation
+                      br
+                  .clearfix
 
       #addFriend.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
         .modal-dialog.modal-sm.animated
