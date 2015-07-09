@@ -39,33 +39,32 @@ $(function () {
         }
     })
     // AJAX response to secure.js's request handler for search of friend
-    $('#findFriend').on('click', function(event) {
-        console.log('hi')
+    $('#findFriend').click(function(event) {
+        console.log('hi');
         event.preventDefault();
-        
+
         // alert('clicked');
-        // console.log($("#friendName").val());
+        var friendName = $("#friendName").val();
         //'data' is the stuff in the server response
         // $.ajax({
         //             type: "POST",
-        //             url: "/friends",
-        //             dataType: 'json',
-        //             contentType: "application/json; charset=utf-8",
-        //             success: function(data) {
-        //                         console.log("this is" + data);
-        //                     },
-        //             error: function(data){
-        //                 alert("fail");
-        //             }
+        //             url: "/friends"
+        //         }).done(function(data){
+        //             console.log('this is ' + data);
         //         });
-        $.post("/friends", function (data) {
-            console.log("hi");
-            if (data.success) {
+        //             // success: function(data) {
+        //             //             console.log("this is" + data);
+        //             //         },
+        //             // error:  function(data) {
+        //             //             alert("fail");
+        //             //         }
+        //         // });
+        $.post("/friends", {friendName : friendName}, function (data) {
+            if (data.success == true) {
                 window.location.href = "/friends";            
             } 
             else {
-                //e.p
-                   // shakeModal(); 
+                shakeModal(); 
             }
         });
     });
@@ -74,14 +73,14 @@ $(function () {
 
 
 
-// function shakeModal() {
+function shakeModal() {
 
-//     $('#addFriend .modal-dialog').addClass('shake');
-//     $('.error').addClass('alert alert-danger').html("user not found!");
-//     $('input#friendName[type="text"]').val('');
+    $('#addFriend .modal-dialog').addClass('shake');
+    $('.error').addClass('alert alert-danger').html("user not found! try again.");
+    $('input#friendName[type="text"]').val('');
 
-//     setTimeout(function() { 
-//         $('#addFriend .modal-dialog').removeClass('shake'); 
-//     }, 1000); 
+    setTimeout(function() { 
+        $('#addFriend .modal-dialog').removeClass('shake'); 
+    }, 1000); 
 
-// }
+}
