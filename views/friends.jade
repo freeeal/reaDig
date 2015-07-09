@@ -27,13 +27,12 @@ block content
                     button.btn.btn-default(type='button')
                       span.glyphicon.glyphicon-search.text-muted
             ul#friend-list.list-group
-              - var i = 0
-                while i < requestedFriends.length
+              - each acceptedFriend in acceptedFriends
                 li.list-group-item
-                  .col-xs-12.col-sm-3 #{requestedFriends.friend}
+                  .col-xs-12.col-sm-3
                     img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
                   .col-xs-12.col-sm-9 accepted:
-                    span.name 
+                    span.name #{acceptedFriend.friend.local.firstName} #{acceptedFriend.friend.local.lastName} 
                     a(href='/reviews', style='color:black') reviews
                     br
                     span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
@@ -49,13 +48,12 @@ block content
                       span.text-muted send recommendation
                       br
                   .clearfix
-                  - i++
-
-                li.list-group-item requested:
+              - each requestedFriend in requestedFriends
+                li.list-group-item requested: 
                   .col-xs-12.col-sm-3 
                     img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
                   .col-xs-12.col-sm-9 
-                    span.name a
+                    span.name #{requestedFriend.friend.local.firstName} #{requestedFriend.friend.local.lastName} 
                     br
                     span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
                     span.visible-xs
@@ -70,11 +68,12 @@ block content
                       span.text-muted send recommendation
                       br
                   .clearfix
+              - each pendingFriend in pendingFriends
                 li.list-group-item pending:
                   .col-xs-12.col-sm-3
                     img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
                   .col-xs-12.col-sm-9
-                    span.name 
+                    span.name #{pendingFriend.friend.local.firstName} #{pendingFriend.friend.local.lastName} 
                     br
                     span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
                     span.visible-xs

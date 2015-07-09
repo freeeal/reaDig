@@ -158,16 +158,15 @@ module.exports = function(router, passport){
                 if (friends[i].status === "accepted") {
                     acceptedFriends.push(friends[i]);
                     console.log(acceptedFriends);
-                }
-               
+                }    
             }
-        });
 
-        res.render('friends', { 
-            user: user,
-            requestedFriends: requestedFriends,
-            pendingFriends: pendingFriends,
-            acceptedFriends: acceptedFriends
+            res.render('friends', { 
+                user: user,
+                requestedFriends: requestedFriends,
+                pendingFriends: pendingFriends,
+                acceptedFriends: acceptedFriends
+            });
         });
 
     })
