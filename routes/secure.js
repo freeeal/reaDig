@@ -44,11 +44,6 @@ module.exports = function(router, passport){
     }));
 
     // EDIT PROFILE SECTION =====================
-    router.get('/account', function(req, res) {
-        res.render('edit-profile', { user : req.user });
-    });
-
-    // EDIT PROFILE SECTION =====================
     router.post('/account', function(req, res, user) {
         var user = req.user;
 
@@ -62,6 +57,12 @@ module.exports = function(router, passport){
             res.redirect('/profile');
         }
     });
+
+    // EDIT PROFILE SECTION =====================
+    router.get('/account', function(req, res) {
+        res.render('edit-profile', { user : req.user });
+    });
+
 
     // ACCEPT REVIEW POSTS TO PROFILE PAGE ======
     router.post('/profile', function(req, res, bookName) {

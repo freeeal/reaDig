@@ -30,8 +30,8 @@ block content
               - each acceptedFriend in acceptedFriends
                 li.list-group-item
                   .col-xs-12.col-sm-3
-                    - if (acceptedFriend.userPhoto != undefined)
-                      img.img-responsive.img-circle(src='../images/user-photos/#{acceptedFriend.userPhoto.name}', alt='user photo')
+                    - if (acceptedFriend.friend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{acceptedFriend.friend.userPhoto.name}', alt='user photo')
                     - else
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9 accepted:
@@ -54,8 +54,8 @@ block content
               - each requestedFriend in requestedFriends
                 li.list-group-item requested: 
                   .col-xs-12.col-sm-3 
-                    - if (requestedFriend.userPhoto != undefined)
-                      img.img-responsive.img-circle(src='../images/user-photos/#{requestedFriend.userPhoto.name}', alt='user photo')
+                    - if (requestedFriend.friend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{requestedFriend.friend.userPhoto.name}', alt='user photo')
                     - else
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9 
@@ -77,8 +77,8 @@ block content
               - each pendingFriend in pendingFriends
                 li.list-group-item pending:
                   .col-xs-12.col-sm-3
-                    - if (pendingFriend.userPhoto != undefined)
-                      img.img-responsive.img-circle(src='../images/user-photos/#{pendingFriend.userPhoto.name}', alt='user photo')
+                    - if (pendingFriend.friend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{pendingFriend.friend.userPhoto.name}', alt='user photo')
                     - else
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9
