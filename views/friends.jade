@@ -76,13 +76,13 @@ block content
                   .clearfix
               - each pendingFriend in pendingFriends
                 li.list-group-item pending:
-                  .col-xs-12.col-sm-3
+                  .col-xs-6.col-sm-4
                     - if (pendingFriend.friend.userPhoto != undefined)
                       img.img-responsive.img-circle(src='../images/user-photos/#{pendingFriend.friend.userPhoto.name}', alt='user photo')
                     - else
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
-                  .col-xs-12.col-sm-9
-                    span.name #{pendingFriend.friend.local.firstName} #{pendingFriend.friend.local.lastName} 
+                  .col-xs-6.col-sm-4
+                    span.name #{pendingFriend.friend.local.firstName} #{pendingFriend.friend.local.lastName}
                     br
                     span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
                     span.visible-xs
@@ -96,6 +96,11 @@ block content
                     span.visible-xs
                       span.text-muted send recommendation
                       br
+                  .col-xs-6.col-sm-4
+                    form(class='accept-friend', style='text-center', action='/friends/accept', method='POST')
+                      .form-group
+                        input#pendingFriend(type='hidden', name='pendingFriend', value='#{pendingFriend.friend}')
+                        button#acceptFriend(class='btn btn-md btn-primary btn-block', type='submit') accept request  
                   .clearfix
 
       #addFriend.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')

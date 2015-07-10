@@ -210,7 +210,7 @@ module.exports = function(router, passport){
     router.post('/friends', urlencodedParser, function(req, res, friendName) {
         
         var friendFullName = req.body.friendName;
-        console.log(friendFullName);
+        // console.log(friendFullName);
         var friendFirstName, friendLastName;
 
         function splitName (fullName) {
@@ -228,7 +228,7 @@ module.exports = function(router, passport){
                             { 'facebook.fullName' : friendFullName },
                             { 'twitter.fullName' : friendFullName },
                             { 'google.fullName' : friendFullName },
-                            { $and: [{ 'local.firstName' : friendFirstName }, { 'local.lastName' : friendLastName }] }
+                            { $and: [{ 'local.firstName' : friendFirstName }, { 'local.lastName' : friendLastName }] } 
                         ]}, function(err, user) {
 
                 if (err) throw err;
@@ -255,6 +255,28 @@ module.exports = function(router, passport){
         });
 
     });
+
+    // // ACCEPT FRIEND REQUESTS PAGE =================================
+    // router.post('/friends/accept', function(req, res, pendingFriend, user) {
+
+    //     var pendingFriend = req.body.pendingFriend;
+    //     console.log(pendingFriend);
+
+    //     if (pendingFriend != undefined) {
+    //         var user1 = req.user;
+    //         var user2 = pendingFriend;
+
+    //         User.requestFriend(user1._id, user2._id, function() {
+    //             console.log('you accepted friend: ' + user2._id);           
+    //         });
+
+    //         res.send({ success : true });
+    //     }
+
+    //     else {
+    //         res.send({ success : false });
+    //     }
+    // })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {
