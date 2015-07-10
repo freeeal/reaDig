@@ -8,7 +8,10 @@ block content
           br
           br
           .info-card
-            img(style='width:75%', src='https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xap1/t31.0-8/1268676_10204873052168894_3265072449209722771_o.jpg')
+            - if (user.userPhoto != undefined)
+              img(style='width:75%', src='../images/user-photos/#{user.userPhoto.name}')
+            - else
+              img(style='width:75%', src='../images/empty-user.jpg')
             .info-card-details.animate
               .info-card-header
                 h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}

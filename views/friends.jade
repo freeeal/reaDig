@@ -30,7 +30,10 @@ block content
               - each acceptedFriend in acceptedFriends
                 li.list-group-item
                   .col-xs-12.col-sm-3
-                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                    - if (acceptedFriend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{acceptedFriend.userPhoto.name}', alt='user photo')
+                    - else
+                      img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9 accepted:
                     span.name #{acceptedFriend.friend.local.firstName} #{acceptedFriend.friend.local.lastName} 
                     a(href='/reviews', style='color:black') reviews
@@ -51,7 +54,10 @@ block content
               - each requestedFriend in requestedFriends
                 li.list-group-item requested: 
                   .col-xs-12.col-sm-3 
-                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                    - if (requestedFriend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{requestedFriend.userPhoto.name}', alt='user photo')
+                    - else
+                      img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9 
                     span.name #{requestedFriend.friend.local.firstName} #{requestedFriend.friend.local.lastName} 
                     br
@@ -71,7 +77,10 @@ block content
               - each pendingFriend in pendingFriends
                 li.list-group-item pending:
                   .col-xs-12.col-sm-3
-                    img.img-responsive.img-circle(src='http://api.randomuser.me/portraits/men/49.jpg', alt='Scott Stevens')
+                    - if (pendingFriend.userPhoto != undefined)
+                      img.img-responsive.img-circle(src='../images/user-photos/#{pendingFriend.userPhoto.name}', alt='user photo')
+                    - else
+                      img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9
                     span.name #{pendingFriend.friend.local.firstName} #{pendingFriend.friend.local.lastName} 
                     br

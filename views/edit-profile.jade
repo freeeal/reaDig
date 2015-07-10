@@ -6,7 +6,7 @@ block content
     div.page-header.text-center
       h1 edit profile settings
     div.row
-      div.col-md-6.text-center
+      div.col-md-4.text-center
         div.signup-wall
           h3.fa.fa-user   
             b Local Information
@@ -36,7 +36,7 @@ block content
             br
             a(href='/auth/connect/facebook', class='btn btn-primary link-button') connect Facebook
 
-      div.col-md-6.text-center
+      div.col-md-4.text-center
         div.signup-wall
           h3.fa.fa-twitter   
             b Twitter
@@ -64,6 +64,20 @@ block content
           else
             br
             a(href='/auth/connect/google', class='btn btn-primary link-button') connect Google+
+
+      div.col-md-4.text-center
+        .container-fluid
+          .form-area.text-center
+            form#uploadForm(enctype='multipart/form-data', action='/account', method='POST')
+              br(style='clear:both')
+              h3(style='margin-bottom: 25px; text-align: center;') 
+                b add a profile picture
+              input(type='file', name='userPhoto')
+              input#submit(type='submit', value='Upload Image', name='submit')
+              #message
+                if message
+                  h3.text-center.error-message #{message}
+          
     br
     br
     div.text-center

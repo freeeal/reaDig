@@ -42,6 +42,7 @@ var UserSchema = new Schema({
         fullName	 : String,
         url			 : String
     },
+    userPhoto: Object,
     reviews: [ReviewSchema]
     // aboutMe: String
 

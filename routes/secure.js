@@ -3,7 +3,11 @@ var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = require('body-parser').urlencoded({ extended: false });
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var multer = require('multer');
+var done = false;
+
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -18,15 +22,45 @@ module.exports = function(router, passport){
     // PROFILE SECTION =========================
    	router.get('/profile', function(req, res) {
         res.render('profile', { 
-            user : req.user,                            // get the user out of session and pass to template
+            user : req.user,                  // get the user out of session and pass to template
             message : req.flash('message'),
             book : req.book
         }); 
     });
 
+    // CONFIGURE THE MULTER ====================
+
+    router.use(multer({ dest: './public/images/user-photos/',
+        rename: function (fieldname, filename) {
+            return filename+Date.now();
+        },
+        onFileUploadStart: function (file) {
+            console.log(file.originalname + ' is starting ...');
+        },
+        onFileUploadComplete: function (file) {
+            console.log(file.fieldname + ' uploaded to  ' + file.path);
+            done = true;
+        }
+    }));
+
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
         res.render('edit-profile', { user : req.user });
+    });
+
+    // EDIT PROFILE SECTION =====================
+    router.post('/account', function(req, res, user) {
+        var user = req.user;
+
+        if (done == true) {
+            console.log(req.files);
+            user.userPhoto = req.files.userPhoto;
+            user.save(function(err) {
+                if (err) throw err;  
+                return user;
+            });
+            res.redirect('/profile');
+        }
     });
 
     // ACCEPT REVIEW POSTS TO PROFILE PAGE ======
@@ -98,7 +132,7 @@ module.exports = function(router, passport){
                                             console.log(err);
                                         }
                                         else {
-                                            console.log('success');
+                                            console.log('review added to user collection reviews array');
                                         }
                                     }
                                 )
@@ -110,7 +144,7 @@ module.exports = function(router, passport){
                                             console.log(err);
                                         }
                                         else {
-                                            console.log('success');
+                                            console.log('review added to book collection reviews array');
                                         }
                                     }
                                 )
