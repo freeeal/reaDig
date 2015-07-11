@@ -54,22 +54,21 @@ $(function () {
         });
     });
 
-    // // accept friend request GET request (send data to router), res.send back success
-    // $('#acceptFriend').click(function(event) {
+    // accept friend request GET request (send data to router), res.send back success
+    $('#acceptFriend').click(function(event) {
 
-    //     event.preventDefault();
-    //     var pendingFriend = $("#accept-friend").serializeObject();
-    //     console.log(pendingFriend);
+        event.preventDefault();
+        var pendingFriend = $("#pendingFriend").val();
    
-    //     $.post("/friends/accept", {pendingFriend: pendingFriend}, function (data) {
-    //         if (data.success == true) {
-    //             window.location.href = "/friends";            
-    //         } 
-    //         else {
-    //             console.log("something went wrong");
-    //         }
-    //     });
-    // });
+        $.post("/friends", {pendingFriend: pendingFriend}, function (data) {
+            if (data.success == true) {
+                window.location.href = "/friends";            
+            } 
+            else {
+                console.log("something went wrong");
+            }
+        });
+    });
 
 });
 
@@ -91,19 +90,18 @@ function shakeModal() {
 
 }
 
-// $.fn.serializeObject = function()
-// {
-//     var o = {};
-//     var a = this.serializeArray();
-//     $.each(a, function() {
-//         if (o[this.name] !== undefined) {
-//             if (!o[this.name].push) {
-//                 o[this.name] = [o[this.name]];
-//             }
-//             o[this.name].push(this.value || '');
-//         } else {
-//             o[this.name] = this.value || '';
-//         }
-//     });
-//     return o;
-// };
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};

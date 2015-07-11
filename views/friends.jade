@@ -97,7 +97,7 @@ block content
                       span.text-muted send recommendation
                       br
                   .col-xs-6.col-sm-4
-                    form(class='accept-friend', style='text-center', action='/friends/accept', method='POST')
+                    form(class='accept-friend', style='text-center', action='/friends', method='POST')
                       .form-group
                         input#pendingFriend(type='hidden', name='pendingFriend', value='#{pendingFriend.friend}')
                         button#acceptFriend(class='btn btn-md btn-primary btn-block', type='submit') accept request  

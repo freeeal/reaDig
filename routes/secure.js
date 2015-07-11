@@ -5,7 +5,9 @@ var User = require('../models/user');
 // create application/x-www-form-urlencoded parser
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var multer = require('multer');
+// create application/json parser 
+var jsonParser = bodyParser.json()
+var multer = require('multer'); // for parsing multipart/form-data
 var done = false;
 
 
@@ -207,7 +209,7 @@ module.exports = function(router, passport){
     })
 
     // ADD FRIENDS POST /friends (gets urlencoded bodies) ================
-    router.post('/friends', urlencodedParser, function(req, res, friendName) {
+    router.post('/friends', urlencodedParser, function(req, res) {
         
         var friendFullName = req.body.friendName;
         // console.log(friendFullName);
@@ -256,27 +258,30 @@ module.exports = function(router, passport){
 
     });
 
-    // // ACCEPT FRIEND REQUESTS PAGE =================================
-    // router.post('/friends/accept', function(req, res, pendingFriend, user) {
+    // ACCEPT FRIEND REQUESTS PAGE =================================
+    router.post('/friends', jsonParser, function(req, res, user) {
 
-    //     var pendingFriend = req.body.pendingFriend;
-    //     console.log(pendingFriend);
+        var pendingFriend = req.body.pendingFriend;
+        console.log(pendingFriend);
+        
+        process.nextTick(function() {
+            
+            if (pendingFriend != undefined) {                
+                var user1 = req.user;
+                var user2 = pendingFriend;
 
-    //     if (pendingFriend != undefined) {
-    //         var user1 = req.user;
-    //         var user2 = pendingFriend;
+                User.requestFriend(user1._id, user2._id, function() {
+                    console.log('you accepted friend: ' + user2._id);           
+                });
 
-    //         User.requestFriend(user1._id, user2._id, function() {
-    //             console.log('you accepted friend: ' + user2._id);           
-    //         });
+                res.send({ success : true });
+            }
 
-    //         res.send({ success : true });
-    //     }
-
-    //     else {
-    //         res.send({ success : false });
-    //     }
-    // })
+            else {
+                res.send({ success : false });
+            }
+        });
+    })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {
