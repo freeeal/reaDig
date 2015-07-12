@@ -44,7 +44,7 @@ $(function () {
         event.preventDefault();
         var friendName = $("#friendName").val();
    
-        $.post("/friends", {friendName : friendName}, function (data) {
+        $.post("/friends", {"friendName" : friendName}, function (data) {
             if (data.success == true) {
                 window.location.href = "/friends";            
             } 
@@ -58,9 +58,12 @@ $(function () {
     $('#acceptFriend').click(function(event) {
 
         event.preventDefault();
-        var pendingFriend = $("#pendingFriend").val();
+        var pendingFriend = $("#pendingFriend").serializeObject();
    
-        $.post("/friends", {pendingFriend: pendingFriend}, function (data) {
+        $.post({
+                    url: "/friends",
+                    contentType:"application/json; charset=utf-8"
+                }, { pendingFriend: pendingFriend }, function (data) {
             if (data.success == true) {
                 window.location.href = "/friends";            
             } 

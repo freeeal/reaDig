@@ -2,11 +2,11 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
-// create application/x-www-form-urlencoded parser
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-// create application/json parser 
-var jsonParser = bodyParser.json()
+// // create application/x-www-form-urlencoded parser
+// var bodyParser = require('body-parser');
+// var urlencodedParser = bodyParser.urlencoded({ extended: false });
+// // create application/json parser 
+// var jsonParser = bodyParser.json()
 var multer = require('multer'); // for parsing multipart/form-data
 var done = false;
 
@@ -208,8 +208,8 @@ module.exports = function(router, passport){
 
     })
 
-    // ADD FRIENDS POST /friends (gets urlencoded bodies) ================
-    router.post('/friends', urlencodedParser, function(req, res) {
+    // ADD FRIENDS POST /friends ================
+    router.post('/friends',  function(req, res) {
         
         var friendFullName = req.body.friendName;
         // console.log(friendFullName);
@@ -224,64 +224,71 @@ module.exports = function(router, passport){
         friendFirstName = arrFullName[0];
         friendLastName = arrFullName[1];
 
-        // requesting a friend
+        var pendingFriend = req.body.pendingFriend;
+        console.log(pendingFriend);
+
         process.nextTick(function() {
-            User.findOne({$or: [ 
-                            { 'facebook.fullName' : friendFullName },
-                            { 'twitter.fullName' : friendFullName },
-                            { 'google.fullName' : friendFullName },
-                            { $and: [{ 'local.firstName' : friendFirstName }, { 'local.lastName' : friendLastName }] } 
-                        ]}, function(err, user) {
 
-                if (err) throw err;
+            // SEND FRIEND REQUEST
+            if (friendFullName != undefined) {
+                User.findOne({$or: [ 
+                                { 'facebook.fullName' : friendFullName },
+                                { 'twitter.fullName' : friendFullName },
+                                { 'google.fullName' : friendFullName },
+                                { $and: [{ 'local.firstName' : friendFirstName }, { 'local.lastName' : friendLastName }] } 
+                            ]}, function(err, user) {
 
-                if (!user) {
-                    console.log('blah');
-                    res.send({ success : false });
-                } //no such users.
+                    if (err) throw err;
 
-                else {
-                    console.log('user found with name ' + friendFullName);
+                    if (!user) {
+                        console.log('blah');
+                        res.send({ success : false });
+                    } //no such users.
+
+                    else {
+                        console.log('user found with name ' + friendFullName);
+                        var user1 = req.user;
+                        var user2 = user;
+
+                        User.requestFriend(user1._id, user2._id, function() {
+                            console.log('you requested friend: ' + user2._id);
+                            
+                        });
+
+                        res.send({ success : true });
+                    } //user already exists
+
+                });
+            }
+            
+            // ACCEPT FRIEND REQUEST
+            else {
+            
+                if (pendingFriend != undefined) {                
                     var user1 = req.user;
-                    var user2 = user;
+                    var user2 = pendingFriend;
 
                     User.requestFriend(user1._id, user2._id, function() {
-                        console.log('you requested friend: ' + user2._id);
-                        
+                        console.log('you accepted friend: ' + user2._id);           
                     });
 
                     res.send({ success : true });
-                } //user already exists
+                }
 
-            });
+                else {
+                    res.send({ success : false });
+                }
+            }
+
         });
 
     });
 
-    // ACCEPT FRIEND REQUESTS PAGE =================================
-    router.post('/friends', jsonParser, function(req, res, user) {
+    //  PAGE =================================
+    // router.post('/friends', function(req, res, user) {
 
-        var pendingFriend = req.body.pendingFriend;
-        console.log(pendingFriend);
         
-        process.nextTick(function() {
-            
-            if (pendingFriend != undefined) {                
-                var user1 = req.user;
-                var user2 = pendingFriend;
-
-                User.requestFriend(user1._id, user2._id, function() {
-                    console.log('you accepted friend: ' + user2._id);           
-                });
-
-                res.send({ success : true });
-            }
-
-            else {
-                res.send({ success : false });
-            }
-        });
-    })
+    // })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {
