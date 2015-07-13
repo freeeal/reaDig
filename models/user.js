@@ -44,7 +44,10 @@ var UserSchema = new Schema({
     },
     userPhoto: Object,
     reviews: [ReviewSchema],
-    numFriends: Number
+    numFriends: {
+        type: Number,
+        default: 0 
+    }
     // aboutMe: String
 
 });

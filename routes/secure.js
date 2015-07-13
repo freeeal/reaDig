@@ -63,8 +63,7 @@ module.exports = function(router, passport){
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
         res.render('edit-profile', { 
-            user : req.user,
-            countAcceptedFriends : countAcceptedFriends
+            user : req.user
         });
     });
 
@@ -218,8 +217,7 @@ module.exports = function(router, passport){
                 user: user,
                 requestedFriends: requestedFriends,
                 pendingFriends: pendingFriends,
-                acceptedFriends: acceptedFriends,
-                countAcceptedFriends: countAcceptedFriends
+                acceptedFriends: acceptedFriends
             });
         });
 
