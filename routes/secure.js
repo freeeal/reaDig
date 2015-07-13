@@ -226,12 +226,11 @@ module.exports = function(router, passport){
             friendLastName = arrFullName[1];
         }
 
-        var pendingFriend = req.body.pendingFriend;
-        console.log(pendingFriend);
+        var pendingFriendId = req.body.pendingFriendId;
 
         process.nextTick(function() {
 
-            // SEND FRIEND REQUEST
+            // SEND FRIEND REQUEST ==============
             if (friendFullName != undefined) {
                 User.findOne({$or: [ 
                                 { 'facebook.fullName' : friendFullName },
@@ -262,37 +261,30 @@ module.exports = function(router, passport){
                 });
             }
             
-            // ACCEPT FRIEND REQUEST
+            // ACCEPT FRIEND REQUEST =============
             else {
             
-                if (pendingFriend != undefined) {                
+                if (pendingFriendId != undefined) {
+
                     var user1 = req.user;
-                    var user2 = pendingFriend;
+                    console.log(user1._id);
+                    console.log(pendingFriendId);
 
-                    console.log("user1 is " + user1);
-                    console.log("user2 is " + user2);
-
-                    User.requestFriend(user1._id, user2._id, function() {
-                        console.log('you accepted friend: ' + user2._id);           
+                    User.requestFriend(user1._id, pendingFriendId, function() {
+                        console.log('you accepted friend: ' + pendingFriendId);           
                     });
 
-                    res.send({ accepted : true });
+                    res.redirect('/friends');
                 }
 
                 else {
-                    res.send({ accepted : false });
+                    alert('error in accepting request!');
                 }
             }
 
         });
 
     });
-
-    //  PAGE =================================
-    // router.post('/friends', function(req, res, user) {
-
-        
-    // })
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {

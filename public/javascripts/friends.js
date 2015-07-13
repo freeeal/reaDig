@@ -22,7 +22,7 @@ $(function () {
         
         if ($(this).hasClass('hide-search')) {        
             $('.c-search').closest('.row').slideUp(100);
-        }else{   
+        } else{   
             $('.c-search').closest('.row').slideDown(100);
         }
     })
@@ -55,31 +55,6 @@ $(function () {
         });
     });
 
-    // accept friend request GET request (send data to router), res.send back success
-    $('#acceptFriend').click(function(event) {
-
-        event.preventDefault();
-        var pendingFriend = $("#pendingFriend").val()
-        // var pendingFriend = JSON.stringify($("#pendingFriend").val());
-        // var pendingFriend = $("#pendingFriend").serializeObject();
-        // console.log(pendingFriend);
-        // console.log(typeof pendingFriend);
-   
-        // $.ajax({    
-        //             type: 'POST',
-        //             url: "/friends",
-        //             // contentType: "application/json; charset=utf-8",
-        //             data : { pendingFriend : pendingFriend }
-        $.post("/friends", { pendingFriend : pendingFriend }, function (data) {
-            if (data.accepted == true) {
-                window.location.href = "/friends";            
-            } 
-            else {
-                console.log("something went wrong");
-            }
-        });
-    });
-
 });
 
 
@@ -99,25 +74,3 @@ function shakeModal() {
     }, 3000);
 
 }
-
-$.fn.serializeObject = function() {
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};
-
-// //         $.ajax({    
-//                     type: 'POST',
-//                     url: "/friends",
-//                     // contentType: "application/json; charset=utf-8",
-//                     data : { pendingFriend : pendingFriend }
