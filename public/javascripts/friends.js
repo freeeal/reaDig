@@ -43,8 +43,9 @@ $(function () {
         
         event.preventDefault();
         var friendName = $("#friendName").val();
+        console.log(friendName);
    
-        $.post("/friends", {"friendName" : friendName}, function (data) {
+        $.post("/friends", { friendName : friendName }, function (data) {
             if (data.success == true) {
                 window.location.href = "/friends";            
             } 
@@ -58,13 +59,19 @@ $(function () {
     $('#acceptFriend').click(function(event) {
 
         event.preventDefault();
-        var pendingFriend = $("#pendingFriend").serializeObject();
+        var pendingFriend = $("#pendingFriend").val()
+        // var pendingFriend = JSON.stringify($("#pendingFriend").val());
+        // var pendingFriend = $("#pendingFriend").serializeObject();
+        // console.log(pendingFriend);
+        // console.log(typeof pendingFriend);
    
-        $.post({
-                    url: "/friends",
-                    contentType:"application/json; charset=utf-8"
-                }, { pendingFriend: pendingFriend }, function (data) {
-            if (data.success == true) {
+        // $.ajax({    
+        //             type: 'POST',
+        //             url: "/friends",
+        //             // contentType: "application/json; charset=utf-8",
+        //             data : { pendingFriend : pendingFriend }
+        $.post("/friends", { pendingFriend : pendingFriend }, function (data) {
+            if (data.accepted == true) {
                 window.location.href = "/friends";            
             } 
             else {
@@ -108,3 +115,9 @@ $.fn.serializeObject = function() {
     });
     return o;
 };
+
+// //         $.ajax({    
+//                     type: 'POST',
+//                     url: "/friends",
+//                     // contentType: "application/json; charset=utf-8",
+//                     data : { pendingFriend : pendingFriend }

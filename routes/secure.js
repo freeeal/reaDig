@@ -220,9 +220,11 @@ module.exports = function(router, passport){
             return splitName;
         };
 
-        var arrFullName = splitName(friendFullName);
-        friendFirstName = arrFullName[0];
-        friendLastName = arrFullName[1];
+        if (friendFullName != undefined) {
+            var arrFullName = splitName(friendFullName);
+            friendFirstName = arrFullName[0];
+            friendLastName = arrFullName[1];
+        }
 
         var pendingFriend = req.body.pendingFriend;
         console.log(pendingFriend);
@@ -252,11 +254,10 @@ module.exports = function(router, passport){
 
                         User.requestFriend(user1._id, user2._id, function() {
                             console.log('you requested friend: ' + user2._id);
-                            
                         });
 
                         res.send({ success : true });
-                    } //user already exists
+                    } //user exists
 
                 });
             }
@@ -268,15 +269,18 @@ module.exports = function(router, passport){
                     var user1 = req.user;
                     var user2 = pendingFriend;
 
+                    console.log("user1 is " + user1);
+                    console.log("user2 is " + user2);
+
                     User.requestFriend(user1._id, user2._id, function() {
                         console.log('you accepted friend: ' + user2._id);           
                     });
 
-                    res.send({ success : true });
+                    res.send({ accepted : true });
                 }
 
                 else {
-                    res.send({ success : false });
+                    res.send({ accepted : false });
                 }
             }
 
