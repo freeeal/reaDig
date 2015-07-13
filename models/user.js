@@ -43,7 +43,8 @@ var UserSchema = new Schema({
         url			 : String
     },
     userPhoto: Object,
-    reviews: [ReviewSchema]
+    reviews: [ReviewSchema],
+    numFriends: Number
     // aboutMe: String
 
 });

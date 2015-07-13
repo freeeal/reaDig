@@ -62,7 +62,10 @@ module.exports = function(router, passport){
 
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
-        res.render('edit-profile', { user : req.user });
+        res.render('edit-profile', { 
+            user : req.user,
+            countAcceptedFriends : countAcceptedFriends
+        });
     });
 
 
@@ -179,6 +182,7 @@ module.exports = function(router, passport){
         var requestedFriends = [];
         var pendingFriends = [];
         var acceptedFriends = [];
+        var countAcceptedFriends = 0;
 
         User.getFriends(user, function (err, friends) {
              // friends looks like:
@@ -195,14 +199,27 @@ module.exports = function(router, passport){
                 if (friends[i].status === "accepted") {
                     acceptedFriends.push(friends[i]);
                     console.log(acceptedFriends);
+                    countAcceptedFriends++;
+                    // update user's numFriends key
+                    user.update({ numFriends: countAcceptedFriends }, function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log('numFriends updated to ' + countAcceptedFriends);
+                        }
+                    });
                 }    
             }
+
+                                // 
 
             res.render('friends', { 
                 user: user,
                 requestedFriends: requestedFriends,
                 pendingFriends: pendingFriends,
-                acceptedFriends: acceptedFriends
+                acceptedFriends: acceptedFriends,
+                countAcceptedFriends: countAcceptedFriends
             });
         });
 
