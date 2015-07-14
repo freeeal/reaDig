@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  script(src='/javascripts/review-box.js', type='text/javascript')
   div.container-fluid
       div.col-md-4.text-center.profile-panel
         h3 
@@ -19,10 +20,9 @@ block content
               .info-card-detail
                 if user.aboutMe
                   p #{user.aboutMe}
-                  span.glyphicon.glyphicon-edit
                 else
-                  form(class='form-aboutMe', action='/profile', method='POST')
-                    input(type='text', name='aboutMe', class='form-control', placeholder='tell us something about you!', autofocus)
+                  h4 CLICK #[strong 'edit profile']
+                  p to add some info about yourself here #[strong OR] to add a profile picture.
                 .social
                   if user.facebook.token
                     a.social-icon.facebook.animate(href='#{user.facebook.url}', class='[ ]')
@@ -61,8 +61,8 @@ block content
           .form-area.text-center
             form(class='form-review', action='/profile', method='POST')
               br(style='clear:both')
-              h3(style='margin-bottom: 25px; text-align: center;') 
-                b tell us about a book you've read!
+              h2(style='margin-bottom: 25px; text-align: center;') 
+                b REVIEW A BOOK
               .form-group
                 input(type='text', name='bookName', class='form-control', placeholder='book name', required, autofocus)
               #message
@@ -71,7 +71,7 @@ block content
 
               .form-group
                 .row.lead
-                  h2
+                  h3
                     b book rating:
                   #stars.starrr(data-connected-input='rating')
                   span.choice
@@ -80,7 +80,7 @@ block content
                   input(type='hidden', name='rating', required)
 
               .form-group
-                textarea#message-area.form-control(type='textarea', name='reviewBody', placeholder='book review (optional)', maxlength='140', rows='5')
+                textarea#review-area.form-control(type='textarea', name='reviewBody', placeholder='book review (optional)', maxlength='140', rows='5')
                 span.help-block
                   p#characterLeft 
               button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit

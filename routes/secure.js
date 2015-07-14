@@ -46,11 +46,21 @@ module.exports = function(router, passport){
     }));
 
     // EDIT PROFILE SECTION =====================
+    router.get('/account', function(req, res) {
+        res.render('edit-profile', { 
+            user : req.user,
+            message : req.flash('message'),
+        });
+    });
+
+    // EDIT PROFILE SECTION =====================
     router.post('/account', function(req, res, user) {
         var user = req.user;
+        var aboutMe = req.body.aboutMe;
 
-        if (done == true) {
+        if ( done == true || aboutMe != "" ) {
             console.log(req.files);
+            user.aboutMe = aboutMe;
             user.userPhoto = req.files.userPhoto;
             user.save(function(err) {
                 if (err) throw err;  
@@ -58,15 +68,13 @@ module.exports = function(router, passport){
             });
             res.redirect('/profile');
         }
-    });
 
-    // EDIT PROFILE SECTION =====================
-    router.get('/account', function(req, res) {
-        res.render('edit-profile', { 
-            user : req.user
-        });
+        else {
+            console.log('write something');
+            req.flash('message', 'tell us something about yourself before you submit!');
+            res.redirect('/account');
+        }
     });
-
 
     // ACCEPT REVIEW POSTS TO PROFILE PAGE ======
     router.post('/profile', function(req, res, bookName) {
@@ -115,8 +123,6 @@ module.exports = function(router, passport){
                             newReview.reviewBody = req.body.reviewBody;
                             newReview.bookName = book.bookName;
                             newReview.ratingValue = req.body.rating
-                        
-
                             // newReview.datePublished = Date.now;
 
                             newReview.save(function(err) {
@@ -210,8 +216,6 @@ module.exports = function(router, passport){
                     });
                 }    
             }
-
-                                // 
 
             res.render('friends', { 
                 user: user,

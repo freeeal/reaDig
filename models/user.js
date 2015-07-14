@@ -47,8 +47,8 @@ var UserSchema = new Schema({
     numFriends: {
         type: Number,
         default: 0 
-    }
-    // aboutMe: String
+    },
+    aboutMe: String
 
 });
 

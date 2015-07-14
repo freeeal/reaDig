@@ -2,7 +2,7 @@
 $(function(){ 
 
     $('#characterLeft').text('140 characters left');
-    $('#message-area').keydown(function () {
+    $('#review-area').keydown(function () {
         var max = 140;
         var len = $(this).val().length;
         if (len >= max) {

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-
+  script(src='/javascripts/edit-profile.js', type='text/javascript')
   div.container-fluid
     div.page-header.text-center
       h1 edit profile settings
@@ -73,11 +73,21 @@ block content
               h3(style='margin-bottom: 25px; text-align: center;') 
                 b add a profile picture
               input(type='file', name='userPhoto')
+              br
               input#submit(type='submit', value='Upload Image', name='submit')
-              #message
-                if message
-                  h3.text-center.error-message #{message}
-          
+            form#aboutMeForm(class='form-aboutMe', action='/account', method='POST')
+              br(style='clear:both')
+              h3(style='margin-bottom: 25px; text-align: center;') 
+                b add an 'About Me' section
+              .form-group
+                textarea#aboutMe-area.form-control(type='textarea', name='aboutMe', placeholder='tell us about yourself!', maxlength='250', rows='5')
+                span.help-block
+                  p#characterLeft
+                #message
+                  if message
+                      h3.text-center.error-message #{message}
+              button#submit(class='btn btn-md btn-primary btn-block', type='submit') submit
+
     br
     br
     div.text-center

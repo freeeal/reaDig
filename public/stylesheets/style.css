@@ -108,12 +108,12 @@ body {
     border-color: #000000;
 }
 
-.big-register, .profile-button, #submit {
+.big-register, .profile-button, #submit, #acceptFriend {
     background-color: #D9853B;
     color: #000000;
 }
 
-.big-register:hover, .profile-button:hover, #submit:hover {
+.big-register:hover, .profile-button:hover, #submit:hover, #acceptFriend:hover {
     background-color: #C46210;
     border-color: #000000;
     color: #ECECEA;

@@ -37,14 +37,12 @@ block content
                   .col-xs-12.col-sm-9
                     span.name #{acceptedFriend.friend.local.firstName} #{acceptedFriend.friend.local.lastName} 
                     br
-                    span.glyphicon.glyphicon-th-list.text-muted.c-info(class='btn see-reviews-button', data-toggle='tooltip', title='see reviews')
-                    span.visible-xs
-                      span.text-muted
-                      | a(href='/reviews', style='color:black') 
-                      br
-                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
+                    a(href='/reviews', style='color:black') 
+                      i.glyphicon.glyphicon-th-list.text-muted.c-info(class='btn see-reviews-button', data-toggle='tooltip', title='see reviews')
+                    sspan.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
                     span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
                   .clearfix
+              hr(style='height:50px; background-color:#74AFAD')
               - each requestedFriend in requestedFriends
                 li.list-group-item
                   .col-xs-12.col-sm-3 
@@ -52,12 +50,8 @@ block content
                       img.img-responsive.img-circle(src='../images/user-photos/#{requestedFriend.friend.userPhoto.name}', alt='user photo')
                     - else
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
-                  .col-xs-12.col-sm-5 
+                  .col-xs-12.col-sm-5(style='vertical-align: middle') 
                     span.name #{requestedFriend.friend.local.firstName} #{requestedFriend.friend.local.lastName} 
-                    br
-                    span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
-                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
-                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
                   .col-xs-12.col-sm-4 request sent.
                   .clearfix
               - each pendingFriend in pendingFriends
@@ -69,11 +63,8 @@ block content
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-5
                     span.name #{pendingFriend.friend.local.firstName} #{pendingFriend.friend.local.lastName}
-                    br
-                    span.glyphicon.glyphicon-th-list.text-muted.c-info(data-toggle='tooltip', title='see reviews')
-                    span.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
-                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
-                  .col-xs-12.col-sm-4 pending:
+                    h4(style='color:red') sent you a friend request!
+                  .col-xs-12.col-sm-4
                     br
                     br
                     form(class='accept-friend', style='text-center', action='/friends', method='POST')
