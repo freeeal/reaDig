@@ -15,10 +15,10 @@ block content
               ul.pull-right.c-controls
                 li
                   a(href='#add-friend', data-toggle='tooltip', data-placement='top', title='find more friends')
-                    i.glyphicon.glyphicon-plus
+                    i.glyphicon.glyphicon-plus.add-friend
                 li
                   a.hide-search(href='#', data-command='toggle-search', data-toggle='tooltip', data-placement='top', title='toggle search')
-                    i.fa.fa-ellipsis-v
+                    i.fa.fa-ellipsis-v.search-friends
             .row(style='display: none;')
               .col-xs-12
                 .input-group.c-search
@@ -36,11 +36,18 @@ block content
                       img.img-responsive.img-circle(style='width:75%', src='../images/empty-user.jpg')
                   .col-xs-12.col-sm-9
                     span.name #{acceptedFriend.friend.local.firstName} #{acceptedFriend.friend.local.lastName} 
-                    br
-                    a(href='/reviews', style='color:black') 
-                      i.glyphicon.glyphicon-th-list.text-muted.c-info(class='btn see-reviews-button', data-toggle='tooltip', title='see reviews')
-                    sspan.fa.fa-comments.text-muted.c-info(data-toggle='tooltip', title='share comments')
-                    span.glyphicon.glyphicon-envelope.text-muted.c-info(data-toggle='tooltip', title='send recommendations')
+                    - if (acceptedFriend.friend.local.username != undefined) {
+                      a(href='/users/#{acceptedFriend.friend.local.username}', style='color:black')
+                        i.glyphicon.glyphicon-user.text-muted.c-info(class='btn see-user-profile-button', data-toggle='tooltip', title='see user')
+                    - }
+                    - else if (acceptedFriend.friend.twitter.username != undefined) {
+                      a(href='/users/#{acceptedFriend.friend.twitter.username}', style='color:black')
+                        i.glyphicon.glyphicon-user.text-muted.c-info(class='btn see-user-profile-button', data-toggle='tooltip', title='see user')
+                    - }
+                    - else {
+                      a(href='/users/#{acceptedFriend.friend._id}', style='color:black') 
+                        i.glyphicon.glyphicon-user.text-muted.c-info(class='btn see-user-profile-button', data-toggle='tooltip', title='see user')
+                    - }
                   .clearfix
               hr(style='height:50px; background-color:#74AFAD')
               - each requestedFriend in requestedFriends

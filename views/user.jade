@@ -1,0 +1,77 @@
+extends layout
+
+block content
+  div.container-fluid
+      div.col-xs-6.col-sm-4.text-center.profile-panel
+        h3 
+          b 
+          br
+          br
+          .info-card
+            - if (user.userPhoto != undefined)
+              img(style='width:75%', src='../images/user-photos/#{user.userPhoto.name}')
+            - else
+              img(style='width:75%', src='../images/empty-user.jpg')
+            .info-card-details.animate
+              .info-card-header
+                h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}
+                h3(style='color:#558C89') #{user.local.username || user.twitter.username}
+              .info-card-detail
+                if user.aboutMe
+                  p #{user.aboutMe}
+                else
+                  h4 CLICK #[strong 'edit profile']
+                  p to add some info about yourself here #[strong OR] to add a profile picture.
+                .social
+                  if user.facebook.token
+                    a.social-icon.facebook.animate(href='#{user.facebook.url})
+                      span.fa.fa-facebook
+                  if user.twitter.token
+                    a.social-icon.twitter.animate(href='#{user.twitter.url}')
+                      span.fa.fa-twitter
+                  if user.google.token
+                    a.social-icon.google-plus.animate(href='#{user.google.url}')
+                      span.fa.fa-google-plus
+          .info-overview
+            .row.overview
+              .col-md-4.user-pad.text-center
+                h3(href='/profile') books
+                |                     
+                h4 33
+              |                 
+              .col-md-4.user-pad.text-center
+                h3 reviews
+                |                     
+                h4 #{user.reviews.length}
+              |                 
+              .col-md-4.user-pad.text-center
+                h3 friends
+                |                     
+                h4 #{user.numFriends} 
+
+      div.col-xs-6.col-sm-1
+
+      div.col-xs-6.col-sm-7
+        div.container-fluid
+          div.text-center.review-panel
+            h1 #{user.local.firstName}'s book reviews:
+                br
+                br
+                .review-listing.text-left
+                  - each review in user.reviews
+                      .well
+                        h2.review-heading #{review.bookName}
+                          .review-listing-detail
+                            h4= review.reviewBody
+                              br
+                              br
+                              ul.list-inline
+                                - var rating = review.ratingValue
+                                - var i = 1
+                                li | 
+                                  while i<=rating
+                                    span.glyphicon.glyphicon-star
+                                    - i++
+                                  while i<=5
+                                    span.glyphicon.glyphicon-star-empty
+                                    - i++

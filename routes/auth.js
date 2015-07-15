@@ -31,7 +31,7 @@ module.exports = function(router, passport, db){
 		// render the signup form
 		// localhost:3000/auth/signup
 		router.get('/signup', function(req, res){
-			res.render('signup', {message: req.flash('message')});
+			res.render('signup', { message: req.flash('message') });
 		});
 		// handle signup POST
 		router.post('/signup', passport.authenticate('local-signup', {
@@ -165,8 +165,6 @@ module.exports = function(router, passport, db){
 			res.redirect('/account');
 		});
 	});
-
-	// return router;
 
 	// HANDLE LOGOUT ==============================
 	router.get('/logout', function(req, res) {

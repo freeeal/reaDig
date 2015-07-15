@@ -16,36 +16,7 @@ module.exports = function(router, passport){
         res.redirect('/auth');
     });
 
-   
-
-
-
     // working here....
-
-    // router.param('username', function (req, res, next, username) {
-    //     // perform database query that returns user w/ username when done
-    //     User.findOne({$or: [ 
-    //                             { 'local.username' : username },
-    //                             { 'twitter.username' : username }
-    //                         ]
-    //                 }, function(err, user) {
-
-    //                     if (err) throw err;
-
-    //                     if (!user) {
-    //                         console.log('blah');
-    //                         res.end();
-    //                     } //no such users.
-
-    //                     else {
-    //                         var user = req.user;
-    //                         console.log('user found with username ' + username);
-    //                         next();
-    //                     } 
-    //                 }
-    //     );
-
-    // });
     
     // PROFILE SECTION =========================
     router.get('/profile', function(req, res) {
@@ -56,24 +27,44 @@ module.exports = function(router, passport){
         }); 
     });
 
-    // router.get('/:username', function(req, res) {
-    //     // res.setHeader('Content-Type', 'text/plain');
-    //     // res.send("You picked " + req.username);
-    //     res.render('profile', { 
-    //         user: req.user,
-    //         message : req.flash('message'),
-    //         book : req.book,
-    //         username : req.username 
-    //     });
+    // // PROFILE SECTION =========================
+    // router.get('/profile', function(req, res) {
+    //     res.redirect('/:username');
     // });
+    router.param('username', function (req, res, next, username) {
+        // perform database query that returns user w/ username when done
+        User.findOne({$or: [ 
+                                { 'local.username' : username },
+                                { 'twitter.username' : username }
+                            ]
+                    }, function(err, user) {
 
-     // router.get('/:username', function(req, res, next) {
-    //     var username = req.params.username;
-    //     findUserByUsername(username, function(error, user) {
-    //         if (error) return next(error);
-    //         return response.render('user', user);
-    //     });
-    // })
+                        if (err) return next(err);
+
+                        if (!user) {
+                            console.log('blah');
+                            res.end();
+                        } //no such users.
+
+                        else {
+                            req.user = user;
+                            console.log('user found with username ', username);
+                            return next();
+                        } 
+                    }
+        );
+
+    });
+
+    router.get('/users/:username', function(req, res, next) {
+        return res.render('user', { user: req.user });
+    });
+
+    // router.get('/admin/:username',
+    //   function(request, response, next){
+    //     return response.render('admin', request.user);
+    //   }
+    // );
 
     // router.put('/:username/edit');
     // router.delete('/:username/delete');
@@ -106,10 +97,18 @@ module.exports = function(router, passport){
         var user = req.user;
         var aboutMe = req.body.aboutMe;
 
-        if ( done == true || aboutMe != "" ) {
+        if (done == true) {
             console.log(req.files);
-            user.aboutMe = aboutMe;
             user.userPhoto = req.files.userPhoto;
+            user.save(function(err) {
+                if (err) throw err;  
+                return user;
+            });
+            res.redirect('/profile');
+        }
+
+        else if (aboutMe != "") {
+            user.aboutMe = aboutMe;
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
@@ -352,6 +351,12 @@ module.exports = function(router, passport){
         });
 
     });
+
+    // router.get('/users/:username', function(req, res) {
+    //     // res.setHeader('Content-Type', 'text/plain');
+    //     // res.send("You picked " + req.username);
+    //    res.render('user', req.username);
+    // });
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {

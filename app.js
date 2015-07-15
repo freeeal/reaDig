@@ -20,12 +20,12 @@ var config = require('./config/config');
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // process.env.NODE_ENV variable determines our environment and configures Express app accordingly
-  if (process.env.NODE_ENV === 'dev') { 
-    app.use(logger('dev'));
-  } 
-  else if (process.env.NODE_ENV === 'prod') {
-    app.use(compress());
-  }
+if (process.env.NODE_ENV === 'dev') { 
+  app.use(logger('dev'));
+} 
+else if (process.env.NODE_ENV === 'prod') {
+  app.use(compress());
+}
 
 //===========================================================================================================
 // Configuring MongoDB, the database

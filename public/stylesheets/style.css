@@ -110,7 +110,7 @@ body {
 
 .big-register, .profile-button, #submit, #acceptFriend {
     background-color: #D9853B;
-    color: #000000;
+    color: #000000; 
 }
 
 .big-register:hover, .profile-button:hover, #submit:hover, #acceptFriend:hover {
@@ -506,5 +506,13 @@ ul.c-controls li a:hover {
 .addFriend .modal-header {
     border: 0 none;
     padding: 15px 15px 15px;
-/*     padding: 11px 15px; 
-}*/
+     padding: 11px 15px; 
+}
+
+.add-friend, .search-friends {
+    color: #D9853B;
+}
+
+.add-friend:hover, .search-friends:hover {
+    color: #C46210;
+}

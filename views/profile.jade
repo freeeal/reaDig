@@ -25,18 +25,19 @@ block content
                   p to add some info about yourself here #[strong OR] to add a profile picture.
                 .social
                   if user.facebook.token
-                    a.social-icon.facebook.animate(href='#{user.facebook.url}', class='[ ]')
+                    a.social-icon.facebook.animate(href='#{user.facebook.url}')
                       span.fa.fa-facebook
                   if user.twitter.token
-                    a.social-icon.twitter.animate(href='#{user.twitter.url}', class='[ ]')
+                    a.social-icon.twitter.animate(href='#{user.twitter.url}')
                       span.fa.fa-twitter
                   if user.google.token
-                    a.social-icon.google-plus.animate(href='#{user.google.url}', class='[ ]')
+                    a.social-icon.google-plus.animate(href='#{user.google.url}')
                       span.fa.fa-google-plus
           .info-overview
             .row.overview
               .col-md-4.user-pad.text-center
-                h3(href='/profile') books
+                h3
+                a(href='/profile', style='color:black') books
                 |                     
                 h4 33
               |                 
