@@ -73,14 +73,6 @@ var initPassport = require('./config/passport/init');
 initPassport(passport); // pass passport in for configuration
 
 // ROUTES
-// var routes = require('./routes/index')(passport, db); // app.use mounts the index.js router instance
-// app.use('/', routes); // chaining after route definitions
-
-// app.use(function(req, res, next){
-//   console.log("" + req.user); // for testing
-//   next();
-// });
-
 var auth = express.Router();
 require('./routes/auth')(auth, passport);
 app.use('/auth', auth);
@@ -88,7 +80,6 @@ app.use('/auth', auth);
 var secure = express.Router();
 require('./routes/secure')(secure, passport);
 app.use('/', secure);
-
 
 //===========================================================================================================
 // catch 404 and forward to error handler

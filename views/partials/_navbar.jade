@@ -2,9 +2,15 @@ nav.navbar.navbar-inverse.navbar-custom
   .container-fluid
         .navbar-header
           .navbar-brand
-            a(href='/auth')
-              img(src='../../images/reaDig-logo.png', style='max-width:80px; margin-top:-27px')    
-        |     
+            - if (!user) {
+              a(href='/auth')
+                img(src='../../images/reaDig-logo.png', style='max-width:133px; margin-top:-80px; margin-left:-35px')  
+              - }
+            - else {
+              a(href='/profile')
+                img(src='../../images/reaDig-logo.png', style='max-width:133px; margin-top:-80px; margin-left:-35px')
+              - }
+                
         div
           ul.nav.navbar-nav
             li

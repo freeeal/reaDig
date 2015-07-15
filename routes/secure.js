@@ -2,11 +2,6 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
-// // create application/x-www-form-urlencoded parser
-// var bodyParser = require('body-parser');
-// var urlencodedParser = bodyParser.urlencoded({ extended: false });
-// // create application/json parser 
-// var jsonParser = bodyParser.json()
 var multer = require('multer'); // for parsing multipart/form-data
 var done = false;
 
@@ -21,8 +16,39 @@ module.exports = function(router, passport){
         res.redirect('/auth');
     });
 
+   
+
+
+
+    // working here....
+
+    // router.param('username', function (req, res, next, username) {
+    //     // perform database query that returns user w/ username when done
+    //     User.findOne({$or: [ 
+    //                             { 'local.username' : username },
+    //                             { 'twitter.username' : username }
+    //                         ]
+    //                 }, function(err, user) {
+
+    //                     if (err) throw err;
+
+    //                     if (!user) {
+    //                         console.log('blah');
+    //                         res.end();
+    //                     } //no such users.
+
+    //                     else {
+    //                         var user = req.user;
+    //                         console.log('user found with username ' + username);
+    //                         next();
+    //                     } 
+    //                 }
+    //     );
+
+    // });
+    
     // PROFILE SECTION =========================
-   	router.get('/profile', function(req, res) {
+    router.get('/profile', function(req, res) {
         res.render('profile', { 
             user : req.user,                  // get the user out of session and pass to template
             message : req.flash('message'),
@@ -30,16 +56,38 @@ module.exports = function(router, passport){
         }); 
     });
 
-    // CONFIGURE THE MULTER ====================
+    // router.get('/:username', function(req, res) {
+    //     // res.setHeader('Content-Type', 'text/plain');
+    //     // res.send("You picked " + req.username);
+    //     res.render('profile', { 
+    //         user: req.user,
+    //         message : req.flash('message'),
+    //         book : req.book,
+    //         username : req.username 
+    //     });
+    // });
 
+     // router.get('/:username', function(req, res, next) {
+    //     var username = req.params.username;
+    //     findUserByUsername(username, function(error, user) {
+    //         if (error) return next(error);
+    //         return response.render('user', user);
+    //     });
+    // })
+
+    // router.put('/:username/edit');
+    // router.delete('/:username/delete');
+    // working above........
+
+    // CONFIGURE THE MULTER ====================
     router.use(multer({ dest: './public/images/user-photos/',
-        rename: function (fieldname, filename) {
+        rename: function(fieldname, filename) {
             return filename+Date.now();
         },
-        onFileUploadStart: function (file) {
+        onFileUploadStart: function(file) {
             console.log(file.originalname + ' is starting ...');
         },
-        onFileUploadComplete: function (file) {
+        onFileUploadComplete: function(file) {
             console.log(file.fieldname + ' uploaded to  ' + file.path);
             done = true;
         }

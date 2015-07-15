@@ -9,7 +9,6 @@ module.exports = function(router, passport, db){
 		res.render('index', { message: req.flash('message') });
 	});
 
-
 // =============================================================================
 // AUTHENTICATICATION (FOR FIRST LOGIN) ========================================
 // =============================================================================
@@ -97,7 +96,8 @@ module.exports = function(router, passport, db){
 
         // send to facebook to do the authentication 						// request for email
         router.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }, function(req, res){
-			console.log("account" + req.account);}
+				console.log("account" + req.account)
+			}
 		)); 
 
     // twitter --------------------------------

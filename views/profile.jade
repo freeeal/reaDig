@@ -3,7 +3,7 @@ extends layout
 block content
   script(src='/javascripts/review-box.js', type='text/javascript')
   div.container-fluid
-      div.col-md-4.text-center.profile-panel
+      div.col-xs-6.col-sm-4.text-center.profile-panel
         h3 
           b your reaDig profile
           br
@@ -54,9 +54,9 @@ block content
           br          
           a(href='/account', class='btn btn-primary profile-button') edit profile            
 
-      div.col-md-4
+      div.col-xs-6.col-sm-4
 
-      div.col-md-4
+      div.col-xs-6.col-sm-4
         .container-fluid
           .form-area.text-center
             form(class='form-review', action='/profile', method='POST')
