@@ -12,15 +12,15 @@ var ReviewSchema = new Schema({
     reviewer: String,
     reviewBody: String,
     ratingValue: Number,
-    // datePublished: {
-    //     type: Date, 
-    //     default: Date.now 
+    datePublished: {
+        type: Date, 
+        default: Date.now()
+    },
+    // aggregateRating: {
+    //     ratingValue: Number,
+    //     bestRating: Number,
+    //     ratingCount: Number
     // }
-    aggregateRating: {
-        ratingValue: Number,
-        bestRating: Number,
-        ratingCount: Number
-    }
 
 });
 

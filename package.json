@@ -23,6 +23,7 @@
     "jade": "~1.9.2",
     "jquery": "^2.1.4",
     "mocha": "~1.14.0",
+    "moment": "^2.10.3",
     "mongoose": "^4.0.6",
     "mongoose-friends": "^0.2.3",
     "morgan": "~1.5.3",

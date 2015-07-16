@@ -2,9 +2,6 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
-var multer = require('multer'); // for parsing multipart/form-data
-var done = false;
-
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -17,7 +14,6 @@ module.exports = function(router, passport){
     });
 
     // working here....
-    
     // PROFILE SECTION =========================
     router.get('/profile', function(req, res) {
         res.render('profile', { 
@@ -70,20 +66,6 @@ module.exports = function(router, passport){
     // router.delete('/:username/delete');
     // working above........
 
-    // CONFIGURE THE MULTER ====================
-    router.use(multer({ dest: './public/images/user-photos/',
-        rename: function(fieldname, filename) {
-            return filename+Date.now();
-        },
-        onFileUploadStart: function(file) {
-            console.log(file.originalname + ' is starting ...');
-        },
-        onFileUploadComplete: function(file) {
-            console.log(file.fieldname + ' uploaded to  ' + file.path);
-            done = true;
-        }
-    }));
-
     // EDIT PROFILE SECTION =====================
     router.get('/account', function(req, res) {
         res.render('edit-profile', { 
@@ -95,20 +77,20 @@ module.exports = function(router, passport){
     // EDIT PROFILE SECTION =====================
     router.post('/account', function(req, res, user) {
         var user = req.user;
-        var aboutMe = req.body.aboutMe;
 
-        if (done == true) {
+        if (req.app.locals.done == true) {
             console.log(req.files);
             user.userPhoto = req.files.userPhoto;
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
             });
+
             res.redirect('/profile');
         }
 
-        else if (aboutMe != "") {
-            user.aboutMe = aboutMe;
+        else if (req.body.aboutMe != "") {
+            user.aboutMe = req.body.aboutMe;
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
@@ -351,12 +333,6 @@ module.exports = function(router, passport){
         });
 
     });
-
-    // router.get('/users/:username', function(req, res) {
-    //     // res.setHeader('Content-Type', 'text/plain');
-    //     // res.send("You picked " + req.username);
-    //    res.render('user', req.username);
-    // });
 
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {
