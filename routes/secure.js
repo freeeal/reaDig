@@ -2,6 +2,25 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
+var multer = require('multer'); // for parsing multipart/form-data
+// CONFIGURE THE MULTER ===============================================
+// app.locals.done = false;
+var done = false;
+var multer1 = multer({ dest: './public/images/user-photos/',
+    rename: function(fieldname, filename) {
+        return filename+Date.now();
+    },
+    onFileUploadStart: function(file) {
+        console.log(file.originalname + ' is starting ...');
+    },
+    onFileUploadComplete: function(file) {
+        console.log(file.fieldname + ' uploaded to  ' + file.path);
+        // app.locals.done = true;
+        done = true;
+    }
+});
+
+
 
 module.exports = function(router, passport){
     // make sure a user is logged in
@@ -75,10 +94,12 @@ module.exports = function(router, passport){
     });
 
     // EDIT PROFILE SECTION =====================
-    router.post('/account', function(req, res, user) {
+    router.post('/account', multer1, function(req, res, user) {
         var user = req.user;
 
-        if (req.app.locals.done == true) {
+        //req.app.locals.done == true
+
+        if (done == true) {
             console.log(req.files);
             user.userPhoto = req.files.userPhoto;
             user.save(function(err) {
@@ -152,7 +173,6 @@ module.exports = function(router, passport){
                             newReview.reviewBody = req.body.reviewBody;
                             newReview.bookName = book.bookName;
                             newReview.ratingValue = req.body.rating
-                            // newReview.datePublished = Date.now;
 
                             newReview.save(function(err) {
                                 if (err) {

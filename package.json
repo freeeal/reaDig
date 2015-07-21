@@ -4,8 +4,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha"
+    "start": "node app.js"
   },
   "author": "Alan Yan",
   "license": "ISC",
@@ -19,12 +18,14 @@
     "debug": "~2.2.0",
     "express": "~4.12.4",
     "express-session": "^1.10.1",
-    "gulp": "^3.8.11",
     "jade": "~1.9.2",
     "jquery": "^2.1.4",
-    "mocha": "~1.14.0",
     "moment": "^2.10.3",
+    "moment-twitter": "^0.2.0",
     "mongoose": "^4.0.6",
+    "mongoose-crate": "^1.0.10",
+    "mongoose-crate-gm": "^1.0.0",
+    "mongoose-crate-s3": "^1.1.2",
     "mongoose-friends": "^0.2.3",
     "morgan": "~1.5.3",
     "multer": "^0.1.8",

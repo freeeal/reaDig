@@ -12,7 +12,7 @@ var logger = require('morgan');
 var compress = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer'); // for parsing multipart/form-data
+// var multer = require('multer'); // for parsing multipart/form-data
 var moment = require('moment');
 
 //===========================================================================================================
@@ -47,20 +47,20 @@ app.use(cookieParser());
 // Configure static file serving
 app.use(express.static(path.join(__dirname, 'public')));
 
-// CONFIGURE THE MULTER ===============================================
-app.locals.done = false;
-app.use(multer({ dest: './public/images/user-photos/',
-    rename: function(fieldname, filename) {
-        return filename+Date.now();
-    },
-    onFileUploadStart: function(file) {
-        console.log(file.originalname + ' is starting ...');
-    },
-    onFileUploadComplete: function(file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-        app.locals.done = true;
-    }
-}));
+// // CONFIGURE THE MULTER ===============================================
+// app.locals.done = false;
+// app.use(multer({ dest: './public/images/user-photos/',
+//     rename: function(fieldname, filename) {
+//         return filename+Date.now();
+//     },
+//     onFileUploadStart: function(file) {
+//         console.log(file.originalname + ' is starting ...');
+//     },
+//     onFileUploadComplete: function(file) {
+//         console.log(file.fieldname + ' uploaded to  ' + file.path);
+//         app.locals.done = true;
+//     }
+// }));
 
 //===========================================================================================================
 // Configuring Passport
@@ -92,6 +92,10 @@ var initPassport = require('./config/passport/init');
 initPassport(passport); // pass passport in for configuration
 
 // ROUTES
+var api = express.Router();
+require('./routes/api')(api, passport);
+app.use('/api', api);
+
 var auth = express.Router();
 require('./routes/auth')(auth, passport);
 app.use('/auth', auth);

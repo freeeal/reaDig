@@ -26,6 +26,11 @@ module.exports = {
 		clientID: process.env.GOOGLE_ID || dev.google.clientID,
 		clientSecret: process.env.GOOGLE_SECRET || dev.google.clientSecret,
 		callbackURL: process.env.GOOGLE_URL || dev.google.callbackURL
+	},
+	s3: {
+		key: process.env.S3_KEY || dev.s3.key,
+		secret: process.env.S3_SECRET || dev.s3.secret,
+		bucket: process.env.S3_BUCKET || dev.s3.bucket
 	}
 
 };

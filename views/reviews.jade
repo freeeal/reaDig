@@ -11,6 +11,7 @@ block content
                 .well
                   h2.review-heading #{review.bookName}
                     .review-listing-detail
+                        img(style='width:75%', src='#{book.file.url}')
                       h4= review.reviewBody
                         br
                         br
@@ -24,4 +25,4 @@ block content
                             while i<=5
                               span.glyphicon.glyphicon-star-empty
                               - i++
-                      h4= moment(review.datePublished).fromNow()
+                      h4(style='text-align:right')= moment(review.datePublished).fromNow()
