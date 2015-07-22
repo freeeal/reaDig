@@ -21,7 +21,6 @@ var multer1 = multer({ dest: './public/images/user-photos/',
 });
 
 
-
 module.exports = function(router, passport){
     // make sure a user is logged in
     router.use(function(req, res, next) {
@@ -37,8 +36,7 @@ module.exports = function(router, passport){
     router.get('/profile', function(req, res) {
         res.render('profile', { 
             user : req.user,                  // get the user out of session and pass to template
-            message : req.flash('message'),
-            book : req.book
+            message : req.flash('message')
         }); 
     });
 
@@ -89,7 +87,7 @@ module.exports = function(router, passport){
     router.get('/account', function(req, res) {
         res.render('edit-profile', { 
             user : req.user,
-            message : req.flash('message'),
+            message : req.flash('message')
         });
     });
 
@@ -172,7 +170,10 @@ module.exports = function(router, passport){
                             newReview.reviewer = req.user.local.fullName || req.user.facebook.fullName || req.user.twitter.fullName || req.user.google.fullName;
                             newReview.reviewBody = req.body.reviewBody;
                             newReview.bookName = book.bookName;
-                            newReview.ratingValue = req.body.rating
+                            newReview.ratingValue = req.body.rating;
+                            newReview.bookId = book._id;
+                            newReview.imageUrl = book.image.url;
+                            newReview.authorName = book.authorName;
 
                             newReview.save(function(err) {
                                 if (err) {
@@ -184,6 +185,8 @@ module.exports = function(router, passport){
                                 console.log('book reviewer is ' + newReview.reviewer);
                                 console.log('book review: ' + newReview.reviewBody);
                                 console.log('book rating is ' + newReview.ratingValue);
+                                console.log('book ref is ' + newReview.bookId);
+                                console.log('book image url is ' + newReview.imageUrl);
 
                                 user.update(
                                     { $push: { reviews: newReview }},
@@ -224,8 +227,7 @@ module.exports = function(router, passport){
     router.get('/reviews', function(req, res) {
         res.render('reviews', {
             user: req.user,
-            reviews : req.user.reviews,
-            book: req.book
+            reviews : req.user.reviews
         });
     });
 

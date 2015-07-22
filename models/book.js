@@ -1,12 +1,9 @@
 // Creating Mongoose models
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// import Review schema
-// var ReviewSchema = mongoose.model('Review').schema;
 var crate = require('mongoose-crate'),
     S3 = require('mongoose-crate-s3');
-    // GraphicsMagic = require('mongoose-crate-gm');
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development'; // fix?
 
 var BookSchema = new Schema({
 
@@ -15,7 +12,6 @@ var BookSchema = new Schema({
     	trim: true
     },
     authorName: String,
-    // reviews: [ReviewSchema]
     reviews: [{
     	type: Schema.Types.ObjectId, 
     	ref: 'Review'

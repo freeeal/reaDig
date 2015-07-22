@@ -4,10 +4,12 @@ var Schema = mongoose.Schema;
 
 var ReviewSchema = new Schema({
 
-    bookName: {
+    bookName: {         // to add: use book below as ref
         type: String,
         trim: true
     },
+    authorName: String,
+    imageUrl: String,
     reviewId: Schema.Types.ObjectId,
     reviewer: String,
     reviewBody: String,

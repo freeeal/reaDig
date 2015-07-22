@@ -2,27 +2,29 @@ extends layout
 
 block content
   div.container-fluid
+    h1.text-center #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}'s book reviews:
+
     div.text-center.review-panel
-      h1 #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}'s book reviews:
-          br
-          br
-          .review-listing.text-left
-            - each review in reviews
-                .well
-                  h2.review-heading #{review.bookName}
-                    .review-listing-detail
-                        img(style='width:75%', src='#{book.file.url}')
-                      h4= review.reviewBody
-                        br
-                        br
-                        ul.list-inline
-                          - var rating = review.ratingValue
-                          - var i = 1
-                          li | 
-                            while i<=rating
-                              span.glyphicon.glyphicon-star
-                              - i++
-                            while i<=5
-                              span.glyphicon.glyphicon-star-empty
-                              - i++
-                      h4(style='text-align:right')= moment(review.datePublished).fromNow()
+    - each review in reviews
+        div.col-xs-6.col-md-2
+          img(style='height:25%', src='#{review.imageUrl}')
+
+        div.col-xs-12.col-md-10
+          .well
+              .review-listing.text-left
+                h2.review-heading #{review.bookName} by #{review.authorName}
+                      .review-listing-detail
+                        h4= review.reviewBody
+                          br
+                          br
+                          ul.list-inline
+                            - var rating = review.ratingValue
+                            - var i = 1
+                            li | 
+                              while i<=rating
+                                span.glyphicon.glyphicon-star
+                                - i++
+                              while i<=5
+                                span.glyphicon.glyphicon-star-empty
+                                - i++
+                        h4(style='text-align:right')= moment(review.datePublished).fromNow()
