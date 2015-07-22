@@ -38,6 +38,7 @@ $(function () {
             elem.slideUp( 100 );
         }
     })
+    
     // AJAX response to secure.js's request handler for search of friend
     $('#findFriend').click(function(event) {
         
