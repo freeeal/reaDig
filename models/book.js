@@ -1,10 +1,9 @@
 // Creating Mongoose models
 var config = require('../config/config'),
-    mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var crate = require('mongoose-crate'),
+    mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    crate = require('mongoose-crate'),
     S3 = require('mongoose-crate-s3');
-// var env = process.env.NODE_ENV || 'dev'; // fix?
 
 var BookSchema = new Schema({
 
@@ -29,6 +28,9 @@ BookSchema.plugin(crate, {
     bucket: config.s3.bucket,
     acl: 'public-read', // defaults to public-read
     region: 'us-standard', // defaults to us-standard
+    // path: function(attachment) { // where the file is stored in the bucket - defaults to this function
+    //   return '/' + path.basename(attachment.path)
+    // }
     path: function(attachment) { // where the file is stored in the bucket - defaults to this function
       return '/' + attachment.name
     }

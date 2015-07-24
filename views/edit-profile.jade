@@ -68,16 +68,11 @@ block content
       div.col-md-4.text-center
         .container-fluid
           .form-area.text-center
-            form#uploadForm(enctype='multipart/form-data', action='/account', method='POST')
+            form#aboutMeForm(enctype='multipart/form-data', action='/account', method='POST')
               br(style='clear:both')
               h3(style='margin-bottom: 25px; text-align: center;') 
                 b add a profile picture
               input(type='file', name='userPhoto')
-              br
-              input#submit(type='submit', value='Upload Image', name='submit')
-          .form-area.text-center
-            form#aboutMeForm(class='form-aboutMe', action='/account', method='POST')
-              br(style='clear:both')
               h3(style='margin-bottom: 25px; text-align: center;') 
                 b add an 'About Me' section
               .form-group

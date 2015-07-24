@@ -3,20 +3,11 @@ var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
 var multer = require('multer'); // for parsing multipart/form-data
+
 // CONFIGURE THE MULTER ===============================================
-// app.locals.done = false;
-var done = false;
-var multer1 = multer({ dest: './public/images/user-photos/',
+var upload = multer({ dest: './public/images/user-photos/',
     rename: function(fieldname, filename) {
         return filename+Date.now();
-    },
-    onFileUploadStart: function(file) {
-        console.log(file.originalname + ' is starting ...');
-    },
-    onFileUploadComplete: function(file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-        // app.locals.done = true;
-        done = true;
     }
 });
 
@@ -92,14 +83,12 @@ module.exports = function(router, passport){
     });
 
     // EDIT PROFILE SECTION =====================
-    router.post('/account', multer1, function(req, res, user) {
+    router.post('/account', upload.single('userPhoto'), function(req, res, user) {
         var user = req.user;
 
-        //req.app.locals.done == true
-
-        if (done == true) {
-            console.log(req.files);
-            user.userPhoto = req.files.userPhoto;
+        if (req.file && req.body.aboutMe == "") {
+            user.userPhoto = req.file;
+            console.log(user.userPhoto);
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
@@ -108,7 +97,17 @@ module.exports = function(router, passport){
             res.redirect('/profile');
         }
 
-        else if (req.body.aboutMe != "") {
+        else if (req.file && req.body.aboutMe != "") {
+            user.userPhoto = req.file;
+            user.aboutMe = req.body.aboutMe;
+            user.save(function(err) {
+                if (err) throw err;  
+                return user;
+            });
+            res.redirect('/profile');
+        }
+
+        else if (!req.file && req.body.aboutMe != "") {
             user.aboutMe = req.body.aboutMe;
             user.save(function(err) {
                 if (err) throw err;  
@@ -171,7 +170,6 @@ module.exports = function(router, passport){
                             newReview.reviewBody = req.body.reviewBody;
                             newReview.bookName = book.bookName;
                             newReview.ratingValue = req.body.rating;
-                            newReview.bookId = book._id;
                             newReview.imageUrl = book.image.url;
                             newReview.authorName = book.authorName;
 
@@ -185,7 +183,6 @@ module.exports = function(router, passport){
                                 console.log('book reviewer is ' + newReview.reviewer);
                                 console.log('book review: ' + newReview.reviewBody);
                                 console.log('book rating is ' + newReview.ratingValue);
-                                console.log('book ref is ' + newReview.bookId);
                                 console.log('book image url is ' + newReview.imageUrl);
 
                                 user.update(
