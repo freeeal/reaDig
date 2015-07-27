@@ -23,10 +23,7 @@
     "jquery": "^2.1.4",
     "moment": "^2.10.3",
     "moment-twitter": "^0.2.0",
-    "mongoose": "^4.0.6",
-    "mongoose-crate": "^1.0.10",
-    "mongoose-crate-gm": "^1.0.0",
-    "mongoose-crate-s3": "^1.1.2",
+    "mongoose": "^4.0.6"
     "mongoose-friends": "^0.2.3",
     "morgan": "~1.5.3",
     "multer": "^1.0.1",
