@@ -31,6 +31,7 @@ module.exports = {
 		key: process.env.S3_KEY || dev.s3.key,
 		secret: process.env.S3_SECRET || dev.s3.secret,
 		bucket: process.env.S3_BUCKET || dev.s3.bucket
-	}
+	},
+	adminToken: process.env.ADMIN_TOKEN || dev['adminToken']
 
 };
