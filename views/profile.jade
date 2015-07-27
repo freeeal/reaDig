@@ -63,7 +63,9 @@ block content
           p
             strong Token
             | : #{user._id}
-
+          h3
+            a(href='/api/upload?access_token=#{user._id}', style='color:black') add books to database
+          p note: you can only do this if you are the admin
 
       div.col-xs-6.col-sm-4
         .container-fluid

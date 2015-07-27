@@ -25,4 +25,4 @@ module.exports = function(passport){
     require('../strategies/google.js')(passport);
     require('../strategies/bearer.js')(passport);
 
-}
+};

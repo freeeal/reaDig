@@ -7,7 +7,7 @@ var passport = require('passport'),
 	config = require('../config'),
 	User = require('../../models/user');
 
-// Create the Facebook strategy configuration method
+// Create the Bearer strategy configuration method
 module.exports = function(passport) {
 
 	passport.use(new BearerStrategy({},
@@ -20,5 +20,4 @@ module.exports = function(passport) {
 		}
 	));
 
-
-}
+};
