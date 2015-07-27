@@ -12,10 +12,9 @@ var User = require('../models/user');
   */
   // [START multer]
 var config = require('../config/config');
-var fs = require('fs');
-var multer = require('multer'),
-    s3 = require('multer-s3'),
-    upload = multer({
+var multer = require('multer');
+var s3 = require('multer-s3');
+var upload = multer({
     storage: s3({
         accessKeyId: config.s3.key,
         secretAccessKey: config.s3.secret,
@@ -43,7 +42,7 @@ var multer = require('multer'),
      
     }, 
     limits: {
-        fileSize: 5 * 1024 * 1024 // no larger than 5mb
+        fileSize: 5 * 1024 * 1024, // no larger than 5mb
     }
     
 });
@@ -51,16 +50,11 @@ var multer = require('multer'),
 
 module.exports = function(router, passport){
 
-    router.use(passport.authenticate('bearer', { session: false }));
-
-    router.use(function(req, res, next) {
-        fs.appendFile('logs.txt', req.path + " token: " + req.query.access_token + "\n",
-        function(err) {
-            next();
-        });
-    });
-
-    // make secured admin route for uploading books to database (add "?access_token=559c8615e43c90302256d46d" to route)
+    // router.use(passport.authenticate('bearer', { session: false }));
+    // router.get('/testAPI', function(req, res) {
+    //  res.json({SecretData: 'abc123'});   
+    // })
+    // make admin.js route
     router.get('/upload', function(req, res) {
         res.render('admin-uploads', { 
             user : req.user
