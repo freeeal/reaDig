@@ -51,6 +51,7 @@ var multer = require('multer'),
 
 module.exports = function(router, passport){
 
+    // log API access requests
     router.use(function(req, res, next) {
         fs.appendFile('logs.txt', req.path + " token: " + req.query.access_token + "\n",
         function(err) {
@@ -85,14 +86,12 @@ module.exports = function(router, passport){
         var newBook = new Book();
         newBook.bookName = req.body.bookName;
         newBook.authorName = req.body.authorName;
-        newBook.bookPhoto = req.file;
-        console.log(newBook.bookPhoto)
         if (process.env.NODE_ENV === 'dev') {
             newBook.imageUrl = 'https://s3.amazonaws.com/readigs-bucket-dev/' + req.file.key;
             console.log(newBook.imageUrl);
         }
         else {
-            newBook.imageUrl = 'https://s3.amazonaws.com/readigs-bucket' + req.file.key;
+            newBook.imageUrl = 'https://s3.amazonaws.com/readigs-bucket/' + req.file.key;
             console.log(newBook.imageUrl);
         }
         newBook.save(function(err) {

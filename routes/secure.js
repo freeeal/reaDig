@@ -2,13 +2,41 @@
 var Review = require('../models/review');
 var Book = require('../models/book');
 var User = require('../models/user');
-var multer = require('multer'); // for parsing multipart/form-data
-
-// CONFIGURE THE MULTER ===============================================
-var upload = multer({ dest: './public/images/user-photos/',
-    rename: function(fieldname, filename) {
-        return filename+Date.now();
+// CONFIGURE THE MULTER =============================================== for parsing multipart/form-data
+var config = require('../config/config');
+var multer = require('multer'),
+    s3 = require('multer-s3'),
+    upload = multer({
+    storage: s3({
+        accessKeyId: config.s3.key,
+        secretAccessKey: config.s3.secret,
+        bucket: config.s3.bucket,
+        acl: 'public-read', // defaults to public-read
+        region: 'us-east-1', // defaults to us-standard
+        dirname: 'uploads/user-photos'
+    }),
+    fileFilter: function fileFilter (req, file, cb) {
+     
+      // The function should call `cb` with a boolean 
+      // to indicate if the file should be accepted 
+      
+      // To reject this file pass `false`, like so: 
+      if (file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+          cb(null, false)
+      }
+      else {
+      // To accept the file pass `true`, like so: 
+          cb(null, true)
+      }
+     
+      // // You can always pass an error if something goes wrong: 
+      // cb(new Error('I don\'t have a clue!'))
+     
+    }, 
+    limits: {
+        fileSize: 5 * 1024 * 1024 // no larger than 5mb
     }
+    
 });
 
 
@@ -85,35 +113,59 @@ module.exports = function(router, passport){
     // EDIT PROFILE SECTION =====================
     router.post('/account', upload.single('userPhoto'), function(req, res, user) {
         var user = req.user;
+        console.log(req.file);
+        console.log(req.body);
 
         if (req.file && req.body.aboutMe == "") {
-            user.userPhoto = req.file;
-            console.log(user.userPhoto);
+
+            if (process.env.NODE_ENV === 'dev') {
+                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket-dev/' + req.file.key;
+                console.log(user.imageUrl);
+            }
+            else {
+                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket/' + req.file.key;
+                console.log(user.imageUrl);
+            }
+
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
             });
 
             res.redirect('/profile');
+
         }
 
         else if (req.file && req.body.aboutMe != "") {
-            user.userPhoto = req.file;
+            
+            if (process.env.NODE_ENV === 'dev') {
+                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket-dev/' + req.file.key;
+                console.log(user.imageUrl);
+            }
+            else {
+                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket' + req.file.key;
+                console.log(user.imageUrl);
+            }
+
             user.aboutMe = req.body.aboutMe;
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
             });
+
             res.redirect('/profile');
         }
 
         else if (!req.file && req.body.aboutMe != "") {
+
             user.aboutMe = req.body.aboutMe;
             user.save(function(err) {
                 if (err) throw err;  
                 return user;
             });
+
             res.redirect('/profile');
+
         }
 
         else {

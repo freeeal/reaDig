@@ -42,13 +42,13 @@ var UserSchema = new Schema({
         fullName	 : String,
         url			 : String
     },
-    userPhoto: Object,
     reviews: [ReviewSchema],
     numFriends: {
         type: Number,
         default: 0 
     },
-    aboutMe: String
+    aboutMe: String,
+    imageUrl: String
 
 });
 

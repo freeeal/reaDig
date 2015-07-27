@@ -9,8 +9,8 @@ block content
           br
           br
           .info-card
-            - if (user.userPhoto != undefined)
-              img(style='width:75%', src='../images/user-photos/#{user.userPhoto.filename}')
+            - if (user.imageUrl != undefined)
+              img(style='width:75%', src='#{user.imageUrl}')
             - else
               img(style='width:75%', src='../images/empty-user.jpg')
             .info-card-details.animate
