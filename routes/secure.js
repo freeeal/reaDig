@@ -143,7 +143,7 @@ module.exports = function(router, passport){
                 console.log(user.imageUrl);
             }
             else {
-                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket' + req.file.key;
+                user.imageUrl = 'https://s3.amazonaws.com/readigs-bucket/' + req.file.key;
                 console.log(user.imageUrl);
             }
 
