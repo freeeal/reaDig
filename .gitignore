@@ -30,4 +30,4 @@ dev.js
 # Other ignored files...
 *.jpg
 *.txt
-books.json
+seeds/*
