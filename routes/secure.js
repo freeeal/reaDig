@@ -170,7 +170,7 @@ module.exports = function(router, passport){
                             newReview.reviewBody = req.body.reviewBody;
                             newReview.bookName = book.bookName;
                             newReview.ratingValue = req.body.rating;
-                            newReview.imageUrl = book.image.url;
+                            newReview.imageUrl = book.imageUrl;
                             newReview.authorName = book.authorName;
 
                             newReview.save(function(err) {

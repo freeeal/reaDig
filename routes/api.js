@@ -11,29 +11,41 @@ var User = require('../models/user');
     to Cloud Storage.
   */
   // [START multer]
+var config = require('../config/config');
 var multer = require('multer');
-// var upload = multer({
-//     inMemory: true, // populate the buffer
-//     fileSize: 5 * 1024 * 1024, // no larger than 5mb
-//     dest: './public/images/book-photos/',
-//     rename: function(fieldname, filename) {
-//       // generate a unique filename
-//       return filename+Date.now();
-//       // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
-//     },
-//     onFileUploadStart: function(file) {
-//         console.log('Starting file upload process.');
-//         if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-//             return false;
-//         }
-//     },
-//     onFileUploadComplete: function(file) {
-//         console.log(file.fieldname + ' uploaded to  ' + file.path);
-//         done = true;
-//     }
-// });
-var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+var s3 = require('multer-s3');
+var upload = multer({
+    storage: s3({
+        accessKeyId: config.s3.key,
+        secretAccessKey: config.s3.secret,
+        bucket: config.s3.bucket,
+        acl: 'public-read', // defaults to public-read
+        region: 'us-east-1', // defaults to us-standard
+        dirname: 'uploads/book-photos'
+    }),
+    fileFilter: function fileFilter (req, file, cb) {
+     
+      // The function should call `cb` with a boolean 
+      // to indicate if the file should be accepted 
+      
+      // To reject this file pass `false`, like so: 
+      if (file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+          cb(null, false)
+      }
+      else {
+      // To accept the file pass `true`, like so: 
+          cb(null, true)
+      }
+     
+      // // You can always pass an error if something goes wrong: 
+      // cb(new Error('I don\'t have a clue!'))
+     
+    }, 
+    limits: {
+        fileSize: 5 * 1024 * 1024, // no larger than 5mb
+    }
+    
+});
 
 
 module.exports = function(router, passport){
@@ -50,19 +62,26 @@ module.exports = function(router, passport){
     });
 
     router.post('/upload', upload.single('bookPhoto'), function(req, res, next) {
-        
         console.log(req.file);
         console.log(req.body);
-            var newBook = new Book();
-            newBook.bookName = req.body.bookName;
-            newBook.authorName = req.body.authorName;
-            newBook.attach('image', req.file, function(err) {
-                if(err) return next(err);
-                newBook.save(function(err) {
-                    if(err) return next(err);
-                    res.send('Book has been saved with file!')
-                });
-            })
+
+        var newBook = new Book();
+        newBook.bookName = req.body.bookName;
+        newBook.authorName = req.body.authorName;
+        newBook.bookPhoto = req.file;
+        console.log(newBook.bookPhoto)
+        if (process.env.NODE_ENV === 'dev') {
+            newBook.imageUrl = 'https://s3.amazonaws.com/readigs-bucket-dev/' + req.file.key;
+            console.log(newBook.imageUrl);
+        }
+        else {
+            newBook.imageUrl = 'https://s3.amazonaws.com/readigs-bucket' + req.file.key;
+            console.log(newBook.imageUrl);
+        }
+        newBook.save(function(err) {
+            if(err) return next(err);
+            res.send('Book has been saved with file!')
+        });
 
     });
 };
