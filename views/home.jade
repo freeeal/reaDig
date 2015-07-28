@@ -1,32 +1,58 @@
 extends layout
 
 block content
-	div.container-fluid
-		div.row
-			div.col-md-4
-				#user
-					h2.text-center.login-title 
-						b welcome back to reaDigs #{user.local.firstName}! 
-						p.lead here are some of today's most read books!
-		div.row
-			div.col-md-4
-				div.signup-wall
-					ul.user-details
-						li first name: #{user.local.firstName || user.facebook.firstName || user.twitter.firstName} 
-						li last name: #{user.local.lastName || user.facebook.lastName || user.twitter.lastName}
-						li username: #{user.local.username || user.twitter.username}
-						li email: #{user.local.email || user.facebook.email}
-				a(href='/logout', class='text-center new-account') log out			
-			div.col-md-4
-				h2 write your latest review here!
-					form(action="/index", method="POST")
-						.form-group
-							label.control-label(for="bookname") book
-							input.form-control#bookname(name="bookname")
-							label.control-label(for="authorname") author
-							input.form-control#authorname(name="authorname")
-							label.control-label(for="rating") rating from 1 to 10
-							input.form-control#rating(name="rating")
-							label.control-label(for="reviewtext") what'd you think of the book?
-							input.form-control#reviewtext(name="reviewtext")
-							button.btn.btn-default(type="submit") post your review!
+  div.container-fluid
+    h1.text-center welcome back to reaDigs, #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}! 
+        p.lead check out latest reviews here:
+
+    div.text-center.review-panel
+    - each review in reviews
+        div.col-xs-6.col-md-2
+          img(style='height:25%', src='#{review.imageUrl}')
+
+        div.col-xs-12.col-md-10
+          .well
+              .review-listing.text-left
+                h2.review-heading #{review.bookName} by #{review.authorName}
+                      .review-listing-detail
+                        h4= review.reviewBody
+                          br
+                          br
+                          ul.list-inline
+                            - var rating = review.ratingValue
+                            - var i = 1
+                            li | 
+                              while i<=rating
+                                span.glyphicon.glyphicon-star
+                                - i++
+                              while i<=5
+                                span.glyphicon.glyphicon-star-empty
+                                - i++
+                        h4(style='text-align:right') by #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}
+                        h5(style='text-align:right')= moment(review.datePublished).fromNow()
+
+    - each acceptedFriend in acceptedFriends
+      - each review in acceptedFriend.friend.reviews
+        div.col-xs-6.col-md-2
+          img(style='height:25%', src='#{review.imageUrl}')
+
+         div.col-xs-12.col-md-10
+          .well
+              .review-listing.text-left
+                h2.review-heading #{review.bookName} by #{review.authorName}
+                      .review-listing-detail
+                        h4= review.reviewBody
+                          br
+                          br
+                          ul.list-inline
+                            - var rating = review.ratingValue
+                            - var i = 1
+                            li | 
+                              while i<=rating
+                                span.glyphicon.glyphicon-star
+                                - i++
+                              while i<=5
+                                span.glyphicon.glyphicon-star-empty
+                                - i++
+                        h4(style='text-align:right') by #{acceptedFriend.friend.local.fullName || acceptedFriend.friend.facebook.fullName || acceptedFriend.friend.twitter.fullName || acceptedFriend.friend.google.fullName}
+                        h5(style='text-align:right')= moment(review.datePublished).fromNow()

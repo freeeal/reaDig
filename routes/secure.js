@@ -405,6 +405,31 @@ module.exports = function(router, passport){
 
     });
 
+    // HOME PAGE SECTION =========================
+    // live feed and reverse populate by date all friends' reviews
+    router.get('/home', function(req, res) {
+
+        var user = req.user;
+        var acceptedFriends = [];
+
+        User.getFriends(user, function (err, friends) {
+            for (var i = 0; i<friends.length; i++) {
+                if (friends[i].status === "accepted") {
+                    acceptedFriends.push(friends[i]);
+                }    
+            }
+
+            console.log(acceptedFriends);
+
+            res.render('home', { 
+                user: user,
+                reviews: user.reviews,
+                acceptedFriends: acceptedFriends
+            });
+        });
+
+    });
+
     // catch-all route, redirects all invalid paths to the profile
     router.get('/*', function(req, res) {
         res.redirect('/profile');
