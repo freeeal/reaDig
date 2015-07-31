@@ -410,21 +410,37 @@ module.exports = function(router, passport){
     router.get('/home', function(req, res) {
 
         var user = req.user;
-        var acceptedFriends = [];
+        var userReviews = req.user.reviews;
+        var allReviews = [];
+
+        for (var i = 0; i<userReviews.length; i++) {
+            if (userReviews[i]) {
+                allReviews.push(userReviews[i]);
+            }    
+        }
 
         User.getFriends(user, function (err, friends) {
-            for (var i = 0; i<friends.length; i++) {
+            for (var i=0; i<friends.length; i++) {
                 if (friends[i].status === "accepted") {
-                    acceptedFriends.push(friends[i]);
+                    if (friends[i].friend.reviews) {
+                        for (var j =0; j<friends[i].friend.reviews.length; j++) {
+                            allReviews.push(friends[i].friend.reviews[j]);
+                        }
+                    }
                 }    
             }
 
-            console.log(acceptedFriends);
+            console.log(allReviews)
+            // add order by date? push into one array, compare dates, but structure of user and each acceptedFriend is diff?
+            allReviews.sort(function(a,b) { 
+                return new Date(a.start).getTime() - new Date(b.start).getTime() 
+            });
+
+            console.log(allReviews)
 
             res.render('home', { 
                 user: user,
-                reviews: user.reviews,
-                acceptedFriends: acceptedFriends
+                reviews: allReviews
             });
         });
 

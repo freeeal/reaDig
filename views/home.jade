@@ -28,31 +28,5 @@ block content
                               while i<=5
                                 span.glyphicon.glyphicon-star-empty
                                 - i++
-                        h4(style='text-align:right') by #{user.local.fullName || user.facebook.fullName || user.twitter.fullName || user.google.fullName}
-                        h5(style='text-align:right')= moment(review.datePublished).fromNow()
-
-    - each acceptedFriend in acceptedFriends
-      - each review in acceptedFriend.friend.reviews
-        div.col-xs-6.col-md-2
-          img(style='height:25%', src='#{review.imageUrl}')
-
-         div.col-xs-12.col-md-10
-          .well
-              .review-listing.text-left
-                h2.review-heading #{review.bookName} by #{review.authorName}
-                      .review-listing-detail
-                        h4= review.reviewBody
-                          br
-                          br
-                          ul.list-inline
-                            - var rating = review.ratingValue
-                            - var i = 1
-                            li | 
-                              while i<=rating
-                                span.glyphicon.glyphicon-star
-                                - i++
-                              while i<=5
-                                span.glyphicon.glyphicon-star-empty
-                                - i++
-                        h4(style='text-align:right') by #{acceptedFriend.friend.local.fullName || acceptedFriend.friend.facebook.fullName || acceptedFriend.friend.twitter.fullName || acceptedFriend.friend.google.fullName}
+                        h4(style='text-align:right') by #{review.reviewer}
                         h5(style='text-align:right')= moment(review.datePublished).fromNow()
