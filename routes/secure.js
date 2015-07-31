@@ -430,10 +430,11 @@ module.exports = function(router, passport){
                 }    
             }
 
-            console.log(allReviews)
-            // add order by date? push into one array, compare dates, but structure of user and each acceptedFriend is diff?
+            // order allReviews by date from most recent to the oldest
             allReviews.sort(function(a,b) { 
-                return new Date(a.start).getTime() - new Date(b.start).getTime() 
+                dateA = a.datePublished;
+                dateB = b.datePublished;
+                return dateA>dateB ? -1 : dateA<dateB ? 1 : 0;
             });
 
             console.log(allReviews)
