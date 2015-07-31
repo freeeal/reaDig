@@ -16,7 +16,7 @@ var ReviewSchema = new Schema({
     ratingValue: Number,
     datePublished: {
         type: Date, 
-        default: Date.now()
+        default: Date.now
     }
     // aggregateRating: {
     //     ratingValue: Number,
