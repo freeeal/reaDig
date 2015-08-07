@@ -28,15 +28,13 @@ nav.navbar.navbar-inverse.navbar-custom li a:hover{
 	background-color:none;
 }
 
-/** {
-    margin: 0;
-}*/
+
 html, body {
     height: 100%;
     background-color: #ECECEA;
     color: #000000;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Karla', sans-serif;
     padding-top: 30px;
 }
 
