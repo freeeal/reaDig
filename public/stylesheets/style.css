@@ -19,7 +19,7 @@ nav.navbar.navbar-inverse.navbar-custom li a:hover{
 }
 
 .navbar-brand {
-	background-color:#558C89;
+	background-color: #558C89;
     margin: 0px;
     padding: 15px;
 }
@@ -28,14 +28,16 @@ nav.navbar.navbar-inverse.navbar-custom li a:hover{
 	background-color:none;
 }
 
-body {
-	padding-top: 30px;
-	font-family: 'Jura', sans-serif;
-	font-weight: 600;
-	margin-top: 40px;
-	background-color: #ECECEA;
-	color: #000000;
-	font-size: 16px;
+/** {
+    margin: 0;
+}*/
+html, body {
+    height: 100%;
+    background-color: #ECECEA;
+    color: #000000;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 30px;
 }
 
 /*//----------------------------------------FOOTER------------------------------------------------------------------------------------------------*/
@@ -44,19 +46,11 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    position: relative;
-    margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
 }
 
-.footer, .push {
-    height: 100px; /* .push must be the same height as .footer */
+.footer {
     width: 100%;
     background-color:#74AFAD;
-    position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	padding: 1rem;
 }
 
 .nav-justified li a {
@@ -69,10 +63,15 @@ body {
     border-radius: 0px;
 }
 
-/*.nav-justified .active a:hover {
-    color: #560000;
-    border-radius: 0px;
-}*/
+.navbar-static-bottom {
+    border-radius: 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    padding-right: 0;
+    padding-left: 0;
+    margin: 20px 0 0;
+}
+
 
 /*//------------------------------------------------------LOGIN PAGE-----------------------------------------------------------------------------------------------*/
 .login-img {
@@ -127,9 +126,9 @@ body {
 
 /*    @import url(//fonts.googleapis.com/css?family=Lato:400,900);
     @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);*/
-body {
+/*body {
     padding: 30px 0px;
-}
+}*/
 
 .animate {
     -webkit-transition: all 0.3s ease-in-out;
@@ -324,9 +323,9 @@ a.google-plus:hover {
 
 /*index page*/
 
-.index-page {
+/*.index-page {
     margin-top: 60px;
-}
+}*/
 
 /*friends list*/
 body {
