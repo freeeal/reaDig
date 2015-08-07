@@ -14,19 +14,20 @@ nav.navbar.navbar-inverse.navbar-custom
         div
           ul.nav.navbar-nav
             li
-              if (!user)  
-                a(href='/auth') home
-              else
+              if (user)
                 a(href='/home') home
             |         
             li
-              a(href='/profile') profile
+              if (user)
+                a(href='/profile') profile
             |         
             li
-              a(href='/friends') friends
+              if (user)
+                a(href='/friends') friends
             |           
             li
-              a(href='/reviews') reviews
+              if (user)
+                a(href='/reviews') reviews
           |       
           ul.nav.navbar-nav.navbar-right      
             if (!user)
