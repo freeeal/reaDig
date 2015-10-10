@@ -25,9 +25,10 @@ build/Release
 node_modules
 
 # Users Environment Variables
-
+/data
 
 # Other ignored files...
 *.jpg
 *.txt
 seeds/*
+
