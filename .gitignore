@@ -25,7 +25,7 @@ build/Release
 node_modules
 
 # Users Environment Variables
-dev.js
+
 
 # Other ignored files...
 *.jpg
