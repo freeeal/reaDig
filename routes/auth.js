@@ -37,7 +37,7 @@ module.exports = function(router, passport, db){
 		router.post('/signup', passport.authenticate('local-signup', {
 			successRedirect: '/profile',
 			failureRedirect: '/auth/signup',
-			failureFlash : true  
+			failureFlash : true //adfalkfj  
 		}));
 
 	// facebook -------------------------------
