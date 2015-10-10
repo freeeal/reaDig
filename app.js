@@ -122,11 +122,8 @@ app.use(function(err, req, res, next) {
 //===========================================================================================================
 // Start Listening to Server
 
-var server = app.listen(process.env.PORT, process.env.IP, function() {
-  console.log("hello");
+var server = app.listen(process.env.PORT || 3000, function () {
+  console.log('Server listening on port ' + (process.env.PORT || 3000) + '...');
 });
-// var server = app.listen(process.env.PORT || 3000, function () {
-//   console.log('Server listening on port ' + (process.env.PORT || 3000) + '...');
-// });
 
 module.exports = app;
